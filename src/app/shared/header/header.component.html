@@ -1,0 +1,22 @@
+<nav mat-tab-nav-bar  backgroundColor="primary" mat-stretch-tabs="false" [tabPanel]="tabPanel">
+  <a mat-tab-link
+     routerLink=""
+     (click)="activeLink = 'Кампусные курсы'"
+     [active]="activeLink == 'Кампусные курсы'">Кампусные курсы</a>
+  <a mat-tab-link
+     (click)="activeLink = 'Группы курсов'"
+     [active]="activeLink == 'Группы курсов'">Группы курсов</a>
+  <a mat-tab-link
+     (click)="activeLink = 'Преподаваемые курсы'"
+     [active]="activeLink == 'Преподаваемые курсы'">Преподаваемые курсы</a>
+  <span class="spacer"></span>
+  <a mat-tab-link
+     routerLink="registration"
+     (click)="activeLink = 'Регистрация'"
+     [active]="activeLink == 'Регистрация'">Регистрация</a>
+  <a mat-tab-link
+     routerLink="login"
+     (click)="activeLink = 'Вход'"
+     [active]="activeLink == 'Вход'">Вход</a>
+</nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
