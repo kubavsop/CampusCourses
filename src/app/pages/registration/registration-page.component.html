@@ -1,1 +1,60 @@
-<p>registration works!</p>
+<form [formGroup]="form" class="registration-form-group">
+
+  <mat-form-field appearance="outline" hideRequiredMarker="true">
+    <mat-label>ФИО</mat-label>
+    <input matInput [formControl]=fullName>
+    @if (fullName.hasError('required')){
+      <mat-error>Введите ФИО</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" hideRequiredMarker="true">
+    <mat-label>День рождения</mat-label>
+    <input matInput [matDatepicker]="picker" [formControl]=birthDay>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    @if (birthDay.hasError('required')) {
+      <mat-error>Выберите дату рождения</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" hideRequiredMarker="true">
+    <mat-label aria-required="false">Email</mat-label>
+    <input matInput [formControl]=email>
+    @if (email.hasError('email') && !email.hasError('required')) {
+      <mat-error>Некорректный email</mat-error>
+    }
+    @if (email.hasError('required')) {
+      <mat-error>Введите email</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" hideRequiredMarker="true">
+    <mat-label>Пароль</mat-label>
+    <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="password">
+    <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+      <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    @if (password.hasError('required')) {
+      <mat-error>Введите пароль</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" hideRequiredMarker="true">
+    <mat-label>Повторите пароль</mat-label>
+    <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="confirmPassword">
+    <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+      <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    @if (password.hasError('required')) {
+      <mat-error>Confirm password is <strong>required</strong></mat-error>
+    }
+  </mat-form-field>
+
+  <button
+    class="register_button"
+    type="submit"
+    [disabled]="form.valid || isLoading"
+    mat-flat-button
+    color="primary">Зарегистрироваться</button>
+</form>
