@@ -10,12 +10,12 @@ import {
 } from "@angular/material/datepicker";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
-import {NgIf} from "@angular/common";
 import {Router} from "@angular/router";
 import {UserService} from "../../core/services/user.service";
+import {showErrorPopup, showPopup} from "../../shared/util/popup";
 
 @Component({
-  selector: 'app-registration',
+  selector: 'app-registration-page',
   standalone: true,
   imports: [
     MatFormFieldModule,
@@ -26,7 +26,6 @@ import {UserService} from "../../core/services/user.service";
     MatDatepickerModule,
     MatButtonModule,
     MatIconModule,
-    NgIf,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './registration-page.component.html',
@@ -38,18 +37,12 @@ export class RegistrationPageComponent {
   hidePassword = true;
   isLoading: boolean = false;
 
-  constructor(
-    private router: Router,
-    private userService: UserService
-  ) {
-  }
-
   form = new FormGroup({
       fullName: new FormControl('', {
         validators: [Validators.required],
         nonNullable: true
       }),
-      birthDay: new FormControl('', {
+      birthDate: new FormControl('', {
         validators: [Validators.required],
         nonNullable: true
       }),
@@ -68,12 +61,33 @@ export class RegistrationPageComponent {
     }
   )
 
+  constructor(
+    private router: Router,
+    private userService: UserService
+  ) {}
+
+  submitForm(): void {
+    if (!this.form.valid) return;
+
+    let formValue = this.form.getRawValue();
+    formValue.birthDate = new Date(formValue.birthDate).toISOString();
+
+    this.userService.register(formValue).subscribe(
+      {
+        next: () => this.router.navigate(["/groups"]),
+        error: (err) => {
+          showErrorPopup('Ошибка регистрации', err);
+        }
+      }
+    )
+  }
+
   get fullName() {
     return this.form.controls.fullName
   }
 
   get birthDay() {
-    return this.form.controls.birthDay
+    return this.form.controls.birthDate
   }
 
   get email() {

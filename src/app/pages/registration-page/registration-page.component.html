@@ -1,4 +1,4 @@
-<form [formGroup]="form" class="registration-form-group">
+<form [formGroup]="form" class="registration-form-group" (ngSubmit)="submitForm()">
 
   <mat-form-field appearance="outline" hideRequiredMarker="true">
     <mat-label>ФИО</mat-label>
@@ -54,7 +54,7 @@
   <button
     class="register_button"
     type="submit"
-    [disabled]="form.valid || isLoading"
+    [disabled]="!form.valid || isLoading"
     mat-flat-button
     color="primary">Зарегистрироваться</button>
 </form>
