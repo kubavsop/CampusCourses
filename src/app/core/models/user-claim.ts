@@ -1,4 +1,4 @@
-export enum UserRoles {
+export enum UserClaim {
   NOT_AUTH,
   AUTH,
   STUDENT,

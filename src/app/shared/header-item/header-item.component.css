@@ -1,0 +1,22 @@
+a[routerLink] {
+  color: unset;
+  text-decoration: none;
+}
+
+a {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 8px 8px;
+  user-select: none;
+}
+
+a:hover,
+a.focus,
+a.item-selected:hover,
+a.item-selected.focus {
+  background-color: #0006;
+}
+
+a.item-selected {
+  background-color: #0003;
+}

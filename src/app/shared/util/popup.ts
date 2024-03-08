@@ -1,9 +1,9 @@
 import Swal, {SweetAlertIcon} from "sweetalert2";
 import {HttpErrorResponse} from "@angular/common/http";
 
-export function showPopup(title: string, message: string, icon: SweetAlertIcon): void {
+export function showPopup(title: string, icon: SweetAlertIcon, message?: string): void {
   Swal.fire({
-    position: "bottom",
+    position: "top",
     title: title,
     text: message,
     icon: icon,
@@ -15,5 +15,5 @@ export function showPopup(title: string, message: string, icon: SweetAlertIcon):
 }
 
 export function showErrorPopup(title: string, error: HttpErrorResponse): void {
-  showPopup(title, error.statusText, 'error');
+  showPopup(title, 'error', error.statusText);
 }
