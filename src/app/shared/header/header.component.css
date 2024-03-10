@@ -14,16 +14,13 @@ span.title {
   flex: 1 1 auto;
 }
 
-a[routerLink] {
-  color: unset;
-  text-decoration: none;
-}
-
 a {
   cursor: pointer;
   border-radius: 4px;
   padding: 8px 8px;
   user-select: none;
+  color: unset;
+  text-decoration: none;
 }
 
 a:hover,

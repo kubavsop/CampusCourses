@@ -1,30 +1,11 @@
 <mat-toolbar color="primary">
   <span routerLink="" class="title">Кампусные курсы</span>
-  <a matRipple routerLink="groups" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }" >Группы курсов</a>
-  <a matRipple routerLink="" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }">Мои курсы</a>
-  <a matRipple routerLink="" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }">Преподаваемые курсы</a>
+  @for (item of leftItems; track item.id) {
+    <a matRipple [routerLink]="item.route" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }" (click)="item.action">{{ item.title }}</a>
+  }
   <span class="spacer"></span>
-  <a matRipple routerLink="" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }">{{ userEmail }}</a>
-  <a matRipple routerLink="" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }">Выход</a>
-  <a matRipple routerLink="registration" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }">Регистрация</a>
-  <a matRipple routerLink="login" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }">Вход</a>
+  @for (item of rightItems; track item.id) {
+    <a matRipple [routerLink]="item.route" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }" (click)="item.action">{{ item.title }}</a>
+  }
 </mat-toolbar>
 
-
-<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-  <mat-icon>more_vert</mat-icon>
-</button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item>
-    <mat-icon>dialpad</mat-icon>
-    <span>Redial</span>
-  </button>
-  <button mat-menu-item style="background: gainsboro">
-    <mat-icon>voicemail</mat-icon>
-    <span>Check voice mail</span>
-  </button>
-  <button mat-menu-item>
-    <mat-icon>notifications_off</mat-icon>
-    <span>Disable alerts</span>
-  </button>
-</mat-menu>

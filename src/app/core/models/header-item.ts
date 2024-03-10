@@ -1,8 +1,9 @@
 import {UserClaim} from "./user-claim";
 
 export interface HeaderItem {
-  route: string,
-  title: string,
+  id: number
+  route?: string,
+  title?: string,
   position: HeaderItemPosition
   claims: UserClaim[]
   action?: () => void
