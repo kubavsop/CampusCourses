@@ -10,6 +10,8 @@ import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {UserClaim} from "../../core/models/user-claim";
 import {HeaderItem, HeaderItemPosition} from "../../core/models/header-item";
+import {MatProgressBar} from "@angular/material/progress-bar";
+import {NgIf} from "@angular/common";
 
 
 @Component({
@@ -28,6 +30,8 @@ import {HeaderItem, HeaderItemPosition} from "../../core/models/header-item";
     MatMenu,
     MatMenuItem,
     MatIconButton,
+    MatProgressBar,
+    NgIf,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
@@ -38,7 +42,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   leftItems: HeaderItem[]
   rightItems: HeaderItem[]
   menuItems: HeaderItem[]
-  subscription: Subscription
+  subscriptions: Subscription[] = []
+  loading: boolean;
 
 
   constructor(
@@ -57,24 +62,31 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription = this.userService.userRoles$.subscribe({
-        next: (claims: UserClaim[]) => {
-          this.menuItems = this.headerItems.filter(item => {
-            return this.checkUserClaims(item.claims, claims);
-          })
+    this.subscriptions.push(
+      this.userService.loading$.subscribe(
+        (loading: boolean) => this.loading = loading
+      )
+    );
 
-          this.leftItems = this.menuItems.filter(item => {
-            return item.position == HeaderItemPosition.LEFT;
-          })
+    this.subscriptions.push(
+      this.userService.userClaim$.subscribe(
+      (claims: UserClaim[]) => {
+        this.menuItems = this.headerItems.filter(item => {
+          return this.checkUserClaims(item.claims, claims);
+        })
 
-          this.rightItems = this.menuItems.filter(item => {
-            return item.position == HeaderItemPosition.RIGHT;
-          })
-        },
-      });
+        this.leftItems = this.menuItems.filter(item => {
+          return item.position == HeaderItemPosition.LEFT;
+        })
+
+        this.rightItems = this.menuItems.filter(item => {
+          return item.position == HeaderItemPosition.RIGHT;
+        })
+      },
+    ));
   }
 
-  private logout(){
+  private logout() {
 
   }
 
@@ -83,6 +95,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptions.forEach(sub => sub.unsubscribe())
   }
 }

@@ -8,6 +8,7 @@
 
 span.title {
   cursor: pointer;
+  margin-right: 30px;
 }
 
 .spacer {
@@ -24,13 +25,11 @@ a {
 }
 
 a:hover,
-a.focus,
-a.item-selected:hover,
-a.item-selected.focus {
-  background-color: #0006;
+a.focus {
+  background-color: rgba(32, 33, 36, .04);
 }
 
 a.item-selected {
-  background-color: #0003;
+  background-color: rgba(26, 115, 232, .12);
 }
 

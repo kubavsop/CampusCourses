@@ -12,33 +12,35 @@ import {UserClaim} from "../models/user-claim";
 })
 export class UserService {
 
-  private userRolesSubject$ = new BehaviorSubject<UserClaim[]>([UserClaim.NOT_AUTH]);
-  public userRoles$ = this.userRolesSubject$
+  private userClaimsSubject$ = new BehaviorSubject<UserClaim[]>([UserClaim.NOT_AUTH]);
+  private loadingSubject$ = new BehaviorSubject<boolean>(false);
+  public userClaim$ = this.userClaimsSubject$
     .asObservable()
     .pipe(distinctUntilChanged());
+  public loading$ = this.loadingSubject$
+    .asObservable()
+    .pipe(distinctUntilChanged());
+
 
   constructor(
     private httpClient: HttpClient,
     private jwtService: JwtService
-  ) {
-  }
+  ) {}
 
   register(registerDto: RegisterDto): Observable<TokenResponseDto> {
     registerDto.birthDate = new Date("10.05.2012").toISOString();
-    this.jwtService.destroyToken();
     return this.httpClient.post<TokenResponseDto>("/registration", registerDto)
       .pipe(
         tap((token: TokenResponseDto) => {
           this.setAuth(token)
+          this.userClaimsSubject$.next([UserClaim.AUTH])
         })
       )
   }
 
   updateRoles() {
     this.httpClient.get<UserRolesDto>("/roles").subscribe(
-      {
-        next: (roles: UserRolesDto) => this.userRolesSubject$.next(this.getClaims(roles)),
-      }
+      (roles: UserRolesDto) => this.userClaimsSubject$.next(this.getClaims(roles)),
     )
   }
 

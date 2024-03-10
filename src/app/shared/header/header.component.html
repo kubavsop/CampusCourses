@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar>
   <span routerLink="" class="title">Кампусные курсы</span>
   @for (item of leftItems; track item.id) {
     <a matRipple [routerLink]="item.route" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }" (click)="item.action">{{ item.title }}</a>
@@ -8,4 +8,7 @@
     <a matRipple [routerLink]="item.route" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }" (click)="item.action">{{ item.title }}</a>
   }
 </mat-toolbar>
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+
+
 
