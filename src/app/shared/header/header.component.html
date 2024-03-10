@@ -1,27 +1,30 @@
 <mat-toolbar color="primary">
-
+  <span routerLink="" class="title">Кампусные курсы</span>
+  <a matRipple routerLink="groups" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }" >Группы курсов</a>
+  <a matRipple routerLink="" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }">Мои курсы</a>
+  <a matRipple routerLink="" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }">Преподаваемые курсы</a>
+  <span class="spacer"></span>
+  <a matRipple routerLink="" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }">{{ userEmail }}</a>
+  <a matRipple routerLink="" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }">Выход</a>
+  <a matRipple routerLink="registration" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }">Регистрация</a>
+  <a matRipple routerLink="login" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }">Вход</a>
 </mat-toolbar>
 
-<nav mat-tab-nav-bar  backgroundColor="primary" mat-stretch-tabs="false" [tabPanel]="tabPanel">
-  <a mat-tab-link
-     routerLink=""
-     (click)="activeLink = 'Кампусные курсы'"
-     [active]="activeLink == 'Кампусные курсы'">Кампусные курсы</a>
-  <a mat-tab-link
-     (click)="activeLink = 'Группы курсов'"
-     [active]="activeLink == 'Группы курсов'">Группы курсов</a>
-  <a mat-tab-link
-     (click)="activeLink = 'Преподаваемые курсы'"
-     [active]="activeLink == 'Преподаваемые курсы'">Преподаваемые курсы</a>
-  <span class="spacer"></span>
-  <a mat-tab-link
-     routerLink="registration"
-     (click)="activeLink = 'Регистрация'"
-     [active]="activeLink == 'Регистрация'">Регистрация</a>
-  <a mat-tab-link
-     routerLink="login"
-     (click)="activeLink = 'Вход'"
-     [active]="activeLink == 'Вход'">Вход</a>
-</nav>
-<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>dialpad</mat-icon>
+    <span>Redial</span>
+  </button>
+  <button mat-menu-item style="background: gainsboro">
+    <mat-icon>voicemail</mat-icon>
+    <span>Check voice mail</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
+    <span>Disable alerts</span>
+  </button>
+</mat-menu>

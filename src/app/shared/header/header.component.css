@@ -1,8 +1,39 @@
+.mat-toolbar {
+  gap: 8px;
+}
+
+.mat-toolbar a {
+  font-size: 16px;
+}
+
+span.title {
+  cursor: pointer;
+}
+
 .spacer {
   flex: 1 1 auto;
 }
 
-nav {
-  position: sticky;
-  top: 0;
+a[routerLink] {
+  color: unset;
+  text-decoration: none;
 }
+
+a {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 8px 8px;
+  user-select: none;
+}
+
+a:hover,
+a.focus,
+a.item-selected:hover,
+a.item-selected.focus {
+  background-color: #0006;
+}
+
+a.item-selected {
+  background-color: #0003;
+}
+

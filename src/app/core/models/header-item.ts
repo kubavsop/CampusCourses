@@ -1,10 +1,11 @@
 import {UserClaim} from "./user-claim";
 
 export interface HeaderItem {
-  title: string
-  route: string
+  route: string,
+  title: string,
   position: HeaderItemPosition
-  roles: UserClaim[]
+  claims: UserClaim[]
+  action?: () => void
 }
 
 export enum HeaderItemPosition {
