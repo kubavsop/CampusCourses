@@ -1,0 +1,35 @@
+<form [formGroup]="form" class="registration-form-group" (ngSubmit)="submitForm()">
+
+  <mat-form-field appearance="outline" hideRequiredMarker="true">
+    <mat-label aria-required="false">Email</mat-label>
+    <input matInput [formControl]=email>
+    @if (email.hasError('email') && !email.hasError('required')) {
+      <mat-error>Некорректный email</mat-error>
+    }
+    @if (email.hasError('required')) {
+      <mat-error>Введите email</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" hideRequiredMarker="true">
+    <mat-label>Пароль</mat-label>
+    <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="password">
+    <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+      <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+    </button>
+    @if (password.hasError('pattern') && !password.hasError('required')) {
+      <mat-error>Некорректный пароль</mat-error>
+    }
+    @if (password.hasError('required')) {
+      <mat-error>Введите пароль</mat-error>
+    }
+  </mat-form-field>
+
+  <button
+    mat-flat-button
+    class="login_button"
+    type="submit"
+    [disabled]="!form.valid || isLoading"
+    color="primary">Войти
+  </button>
+</form>

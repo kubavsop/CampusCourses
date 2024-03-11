@@ -7,6 +7,7 @@ import {JwtService} from "./jwt.service";
 import {UserRolesDto} from "../models/dtos/user-roles-dto";
 import {UserClaim} from "../models/user-claim";
 import {ProfileDto} from "../models/dtos/profile-dto";
+import {LoginDto} from "../models/dtos/login-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,22 @@ export class UserService {
       );
   }
 
+  login(loginDto: LoginDto): Observable<TokenResponseDto> {
+    this.startLoading();
+    return this.httpClient.post<TokenResponseDto>("/login", loginDto)
+      .pipe(
+        tap(
+          (token: TokenResponseDto) => {
+            this.setToken(token);
+            this.updateRoles();
+            this.updateProfile();
+          }),
+        finalize(() => {
+          this.stopLoading()
+        })
+      )
+  }
+
   getProfile(): Observable<ProfileDto> {
     this.startLoading();
     return this.httpClient.get<ProfileDto>("/profile")
@@ -84,7 +101,11 @@ export class UserService {
   }
 
   private updateProfile(): void {
-    this.getProfile().subscribe()
+    this.getProfile().subscribe();
+  }
+
+  private updateRoles(): void {
+    this.getRoles().subscribe();
   }
 
   private startLoading(): void {
