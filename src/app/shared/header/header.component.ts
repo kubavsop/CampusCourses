@@ -3,7 +3,7 @@ import {MatToolbar} from "@angular/material/toolbar";
 import {UserService} from "../../core/services/user.service";
 import {Subscription} from "rxjs";
 import {MatRipple} from "@angular/material/core";
-import {RouterLink, RouterLinkActive} from "@angular/router";
+import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
@@ -12,6 +12,8 @@ import {HeaderItem, HeaderItemPosition} from "../../core/models/header-item";
 import {MatProgressBar} from "@angular/material/progress-bar";
 import {NgIf} from "@angular/common";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {ProfileDto} from "../../core/models/dtos/profile-dto";
+import {showErrorPopup} from "../util/popup";
 
 
 @Component({
@@ -45,6 +47,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 
   constructor(
+    private router: Router,
     private userService: UserService,
     private breakPointObserver: BreakpointObserver
   ) {
@@ -66,7 +69,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           claims: [UserClaim.TEACHER, UserClaim.AUTH]
         },
         {id: 4, route: "profile", position: HeaderItemPosition.RIGHT, claims: [UserClaim.AUTH]},
-        {id: 5, title: "Выход", action: this.logout, position: HeaderItemPosition.RIGHT, claims: [UserClaim.AUTH]},
+        {id: 5, title: "Выход", action: this.logout.bind(this), position: HeaderItemPosition.RIGHT, claims: [UserClaim.AUTH]},
         {
           id: 6,
           route: "registration",
@@ -84,6 +87,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
         (loading: boolean) => this.loading = loading
       )
     );
+
+    this.subscriptions.push(
+      this.userService.profile$.subscribe(
+        (profile: ProfileDto | null) => {
+          const profileItem = this.headerItems.find((item: HeaderItem) => item.route === "profile");
+
+          if (profileItem && profile !== null) {
+            profileItem.title = profile.email;
+          }
+        }
+      )
+    )
 
     this.subscriptions.push(
       this.userService.userClaim$.subscribe(
@@ -111,8 +126,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     )
   }
 
-  private logout() {
+  onAction(action: (() => void) | undefined): void {
+    if (action) {
+      action();
+    }
+  }
 
+  private logout() {
+    this.router.navigate([""]);
+    this.userService.logout().subscribe();
   }
 
   private checkUserClaims(requiredClaims: UserClaim[], userClaims: UserClaim[]): boolean {

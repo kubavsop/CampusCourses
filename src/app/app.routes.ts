@@ -14,5 +14,4 @@ export const routes: Routes = [
   {path: 'groups', component: GroupsComponent},
   {path: 'courses/my', component: CoursesComponent},
   {path: 'courses/teaching', component: CoursesComponent}
-
 ];
