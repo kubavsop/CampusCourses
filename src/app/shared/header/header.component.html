@@ -1,14 +1,20 @@
 <mat-toolbar>
   <span routerLink="" class="title">Кампусные курсы</span>
   @for (item of leftItems; track item.id) {
-    <a matRipple [routerLink]="item.route" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }" (click)="item.action">{{ item.title }}</a>
+    <a matRipple [routerLink]="item.route" routerLinkActive="item-selected" (click)="item.action" *ngIf="!showMenu">{{ item.title }}</a>
   }
   <span class="spacer"></span>
   @for (item of rightItems; track item.id) {
-    <a matRipple [routerLink]="item.route" routerLinkActive="item-selected" [routerLinkActiveOptions]="{ exact: true }" (click)="item.action">{{ item.title }}</a>
+    <a matRipple [routerLink]="item.route" routerLinkActive="item-selected"  (click)="item.action" *ngIf="!showMenu">{{ item.title }}</a>
   }
+  <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" *ngIf="showMenu">
+    <mat-icon>menu</mat-icon>
+  </button>
 </mat-toolbar>
 <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
-
-
+<mat-menu #menu="matMenu" [hidden]="showMenu">
+  @for (item of menuItems; track item.id) {
+    <button mat-menu-item [routerLink]="item.route" routerLinkActive="item-selected" (click)="item.action">{{ item.title }}</button>
+  }
+</mat-menu>
 

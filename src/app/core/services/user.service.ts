@@ -2,22 +2,23 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {RegisterDto} from "../models/dtos/register-dto";
 import {TokenResponseDto} from "../models/dtos/token-response-dto";
-import {BehaviorSubject, distinctUntilChanged, Observable, tap} from "rxjs";
+import {BehaviorSubject, catchError, distinctUntilChanged, finalize, Observable, tap, timeout} from "rxjs";
 import {JwtService} from "./jwt.service";
 import {UserRolesDto} from "../models/dtos/user-roles-dto";
 import {UserClaim} from "../models/user-claim";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private userClaimsSubject$ = new BehaviorSubject<UserClaim[]>([UserClaim.NOT_AUTH]);
-  private loadingSubject$ = new BehaviorSubject<boolean>(false);
-  public userClaim$ = this.userClaimsSubject$
+  private readonly userClaimsSubject$ = new BehaviorSubject<UserClaim[]>([UserClaim.NOT_AUTH]);
+  private readonly loadingSubject$ = new BehaviorSubject<boolean>(false);
+  public readonly userClaim$ = this.userClaimsSubject$
     .asObservable()
     .pipe(distinctUntilChanged());
-  public loading$ = this.loadingSubject$
+  public readonly loading$ = this.loadingSubject$
     .asObservable()
     .pipe(distinctUntilChanged());
 
@@ -29,12 +30,15 @@ export class UserService {
 
   register(registerDto: RegisterDto): Observable<TokenResponseDto> {
     registerDto.birthDate = new Date("10.05.2012").toISOString();
+    this.loadingSubject$.next(true)
     return this.httpClient.post<TokenResponseDto>("/registration", registerDto)
       .pipe(
-        tap((token: TokenResponseDto) => {
-          this.setAuth(token)
-          this.userClaimsSubject$.next([UserClaim.AUTH])
-        })
+        tap(
+          (token: TokenResponseDto) => {
+            this.setAuth(token)
+            this.userClaimsSubject$.next([UserClaim.AUTH])
+          }),
+        finalize(() => this.loadingSubject$.next(false))
       )
   }
 
