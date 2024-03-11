@@ -13,7 +13,6 @@ import {MatProgressBar} from "@angular/material/progress-bar";
 import {NgIf} from "@angular/common";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {ProfileDto} from "../../core/models/dtos/profile-dto";
-import {showErrorPopup} from "../util/popup";
 
 
 @Component({
@@ -54,29 +53,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.headerItems =
       [
         {id: 1, route: "groups", title: "Группы курсов", position: HeaderItemPosition.LEFT, claims: [UserClaim.AUTH]},
-        {
-          id: 2,
-          route: "courses/my",
-          title: "Мои курсы",
-          position: HeaderItemPosition.LEFT,
-          claims: [UserClaim.STUDENT, UserClaim.AUTH]
-        },
-        {
-          id: 3,
-          route: "courses/teaching",
-          title: "Преподаваемые курсы",
-          position: HeaderItemPosition.LEFT,
-          claims: [UserClaim.TEACHER, UserClaim.AUTH]
-        },
+        {id: 2, route: "courses/my", title: "Мои курсы", position: HeaderItemPosition.LEFT, claims: [UserClaim.STUDENT, UserClaim.AUTH]},
+        {id: 3, route: "courses/teaching", title: "Преподаваемые курсы", position: HeaderItemPosition.LEFT, claims: [UserClaim.TEACHER, UserClaim.AUTH]},
         {id: 4, route: "profile", position: HeaderItemPosition.RIGHT, claims: [UserClaim.AUTH]},
         {id: 5, title: "Выход", action: this.logout.bind(this), position: HeaderItemPosition.RIGHT, claims: [UserClaim.AUTH]},
-        {
-          id: 6,
-          route: "registration",
-          title: "Регистрация",
-          position: HeaderItemPosition.RIGHT,
-          claims: [UserClaim.NOT_AUTH]
-        },
+        {id: 6, route: "registration", title: "Регистрация", position: HeaderItemPosition.RIGHT, claims: [UserClaim.NOT_AUTH]},
         {id: 7, route: "login", title: "Вход", position: HeaderItemPosition.RIGHT, claims: [UserClaim.NOT_AUTH]}
       ];
   }

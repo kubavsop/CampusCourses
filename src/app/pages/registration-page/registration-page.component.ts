@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
@@ -12,7 +12,13 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {Router} from "@angular/router";
 import {UserService} from "../../core/services/user.service";
-import {showErrorPopup, showPopup} from "../../shared/util/popup";
+import {showErrorPopup} from "../../shared/util/popup";
+import {confirmPasswordValidator} from "../../core/validators/confirm-password-validator";
+import {Subscription} from "rxjs";
+import {ConfirmPasswordMatcher} from "../../core/validators/confirm-password-matcher";
+import {RegexPatterns} from "../../core/validators/regex-patterns";
+import {BirthdayValidator} from "../../core/validators/birthday-validator";
+import {RegisterDto} from "../../core/models/dtos/register-dto";
 
 @Component({
   selector: 'app-registration-page',
@@ -27,59 +33,55 @@ import {showErrorPopup, showPopup} from "../../shared/util/popup";
     MatButtonModule,
     MatIconModule,
   ],
-  providers: [provideNativeDateAdapter()],
   templateUrl: './registration-page.component.html',
   styleUrl: './registration-page.component.css'
 })
-export class RegistrationPageComponent {
-  private readonly passwordMinLength = 6;
-  private readonly atLeastOneDigitPattern = /\d/
-  hidePassword = true;
-  isLoading: boolean = false;
+export class RegistrationPageComponent implements OnInit, OnDestroy {
+  readonly confirmPasswordMatcher = new ConfirmPasswordMatcher()
+  hidePassword = true
+  isLoading: boolean = false
+  subscription = new Subscription()
 
-  form = new FormGroup({
-      fullName: new FormControl('', {
-        validators: [Validators.required],
-        nonNullable: true
-      }),
-      birthDate: new FormControl('', {
-        validators: [Validators.required],
-        nonNullable: true
-      }),
-      email: new FormControl('', {
-        validators: [Validators.required, Validators.email],
-        nonNullable: true
-      }),
-      password: new FormControl('', {
-        validators: [Validators.required, Validators.minLength(this.passwordMinLength), Validators.pattern(this.atLeastOneDigitPattern)],
-        nonNullable: true
-      }),
-      confirmPassword: new FormControl('', {
-        validators: [Validators.required],
-        nonNullable: true
-      })
-    }
+  readonly form = new FormGroup({
+      fullName: new FormControl('', {validators: [Validators.required],}),
+      birthDate: new FormControl('', {validators: [Validators.required, BirthdayValidator],}),
+      email: new FormControl('', {validators: [Validators.required, Validators.email],}),
+      password: new FormControl('', {validators: [Validators.required, Validators.pattern(RegexPatterns.Password)],}),
+      confirmPassword: new FormControl('')
+    },
+    {validators: confirmPasswordValidator}
   )
 
   constructor(
-    private router: Router,
-    private userService: UserService
+    private readonly router: Router,
+    private readonly userService: UserService,
   ) {}
+
+  ngOnInit(): void {
+    this.subscription = this.userService.loading$.subscribe((flag) => {
+      this.isLoading = flag
+    });
+  }
 
   submitForm(): void {
     if (!this.form.valid) return;
+    let dto: RegisterDto = {
+      email: this.form.value.email!,
+      password: this.form.value.password!,
+      confirmPassword: this.form.value.password!,
+      fullName: this.form.value.fullName!,
+      birthDate: (new Date(this.form.value.birthDate!)).toISOString()
+    }
 
-    let formValue = this.form.getRawValue();
-    formValue.birthDate = new Date(formValue.birthDate).toISOString();
-
-    this.userService.register(formValue).subscribe(
-      {
-        next: () => this.router.navigate(["/groups"]),
-        error: (err) => {
-          showErrorPopup('Ошибка регистрации', err);
+    this.userService.register(dto)
+      .subscribe(
+        {
+          next: () => this.router.navigate(["/groups"]),
+          error: (err) => {
+            showErrorPopup('Ошибка регистрации', err);
+          }
         }
-      }
-    )
+      )
   }
 
   get fullName() {
@@ -100,6 +102,10 @@ export class RegistrationPageComponent {
 
   get confirmPassword() {
     return this.form.controls.confirmPassword
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
 

@@ -35,7 +35,6 @@ export class UserService {
   ) {}
 
   register(registerDto: RegisterDto): Observable<TokenResponseDto> {
-    registerDto.birthDate = new Date("10.05.2012").toISOString();
     this.startLoading();
     return this.httpClient.post<TokenResponseDto>("/registration", registerDto)
       .pipe(
@@ -43,8 +42,11 @@ export class UserService {
           (token: TokenResponseDto) => {
             this.setToken(token);
             this.userClaimsSubject$.next([UserClaim.AUTH]);
+            this.updateProfile();
           }),
-        finalize(() => this.stopLoading())
+        finalize(() => {
+          this.stopLoading()
+        })
       );
   }
 
@@ -79,6 +81,10 @@ export class UserService {
     this.jwtService.destroyToken();
     this.profileSubject$.next(null);
     this.userClaimsSubject$.next([UserClaim.NOT_AUTH]);
+  }
+
+  private updateProfile(): void {
+    this.getProfile().subscribe()
   }
 
   private startLoading(): void {
