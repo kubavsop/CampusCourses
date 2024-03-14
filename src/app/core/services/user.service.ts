@@ -30,11 +30,11 @@ export class UserService {
   constructor(
     private readonly httpClient: HttpClient,
     private readonly jwtService: JwtService,
-    private readonly loadingService: LoadingService
-  ) {}
+  ) {
+  }
 
   register(registerDto: RegisterDto): Observable<TokenResponseDto> {
-    this.loadingService.startLoading();
+
     return this.httpClient.post<TokenResponseDto>("/registration", registerDto)
       .pipe(
         tap(
@@ -42,61 +42,50 @@ export class UserService {
             this.setToken(token);
             this.userClaimsSubject$.next([UserClaim.AUTH]);
             this.updateProfile();
-          }),
-        finalize(() => {
-          this.loadingService.stopLoading()
-        })
+          })
       );
   }
 
   login(loginDto: LoginDto): Observable<TokenResponseDto> {
-    this.loadingService.startLoading();
+
     return this.httpClient.post<TokenResponseDto>("/login", loginDto)
       .pipe(
         tap(
           (token: TokenResponseDto) => {
             this.setToken(token);
+            this.userClaimsSubject$.next([UserClaim.AUTH]);
             this.updateRoles();
             this.updateProfile();
-          }),
-        finalize(() => {
-          this.loadingService.stopLoading()
-        })
+          })
       )
   }
 
   getProfile(): Observable<ProfileDto> {
-    this.loadingService.startLoading();
+
     return this.httpClient.get<ProfileDto>("/profile")
       .pipe(
-        tap((profile: ProfileDto) => this.profileSubject$.next(profile)),
-        finalize(() => this.loadingService.stopLoading())
+        tap((profile: ProfileDto) => this.profileSubject$.next(profile))
       );
   }
 
   editProfile(dto: EditProfileDto): Observable<object> {
-    this.loadingService.startLoading();
+
     return this.httpClient.put("/profile", dto)
-      .pipe(
-        finalize(() => this.loadingService.stopLoading())
-      );
   }
 
   getRoles(): Observable<UserRolesDto> {
-    this.loadingService.startLoading();
+
     return this.httpClient.get<UserRolesDto>("/roles")
       .pipe(
-        tap((roles: UserRolesDto) => this.userClaimsSubject$.next(this.getClaims(roles))),
-        finalize(() => this.loadingService.stopLoading())
+        tap((roles: UserRolesDto) => this.userClaimsSubject$.next(this.getClaims(roles)))
       );
   }
 
   logout(): Observable<object> {
-    this.loadingService.startLoading();
+
     return this.httpClient.post("/logout", null)
       .pipe(
-        tap(() => this.purgeAuth()),
-        finalize(() => this.loadingService.stopLoading())
+        tap(() => this.purgeAuth())
       );
   }
 
@@ -108,6 +97,10 @@ export class UserService {
 
   isAdmin(): boolean {
     return this.userClaimsSubject$.getValue().includes(UserClaim.ADMIN)
+  }
+
+  isAuth(): boolean {
+    return this.userClaimsSubject$.getValue().includes(UserClaim.AUTH)
   }
 
   private updateProfile(): void {

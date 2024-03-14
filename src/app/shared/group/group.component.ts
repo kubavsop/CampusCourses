@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {UserService} from "../../core/services/user.service";
 import {NgIf} from "@angular/common";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-group',
@@ -17,7 +18,11 @@ export class GroupComponent {
 
 
   constructor(
-    protected readonly userService: UserService
+    protected readonly userService: UserService,
+    private readonly router: Router
   ) {}
 
+  navigateToGroupCourses() {
+    this.router.navigate([`/groups/${this.groupId}`]);
+  }
 }

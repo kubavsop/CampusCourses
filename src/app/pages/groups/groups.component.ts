@@ -5,6 +5,7 @@ import {GroupService} from "../../core/services/group.service";
 import {GroupDto} from "../../core/models/dtos/group-dto";
 import {NgIf} from "@angular/common";
 import {UserService} from "../../core/services/user.service";
+import {showErrorPopup} from "../../shared/util/popup";
 
 @Component({
   selector: 'app-groups',
@@ -25,14 +26,19 @@ export class GroupsComponent implements OnInit {
   constructor(
     private readonly groupService: GroupService,
     protected readonly userService: UserService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.groupService.getGroups()
-      .subscribe(
-        (groups: GroupDto[]) => {
-          this.groups = groups
-          this.initialLoading = false
+      .subscribe({
+          next: (groups: GroupDto[]) => {
+            this.groups = groups
+            this.initialLoading = false
+          },
+          error: (err) => {
+            showErrorPopup('Ошибка загрузки групп', err);
+          }
         }
       )
   }

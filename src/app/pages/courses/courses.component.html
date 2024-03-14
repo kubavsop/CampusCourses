@@ -1,1 +1,13 @@
-<p>courses works!</p>
+<div class="courses-container" *ngIf="!initialLoading">
+  <div class="title-container">
+    <h1 class="title">{{ title }}</h1>
+    <button mat-raised-button *ngIf="userService.isAdmin()">Создать</button>
+  </div>
+  @if (courses.length != 0) {
+    @for (course of courses; track course.id) {
+      <app-course [courseDto]="course"></app-course>
+    }
+  } @else {
+    <h2 class="empty">На данный момент курсы отсутствуют</h2>
+  }
+</div>

@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {LoadingService} from "./loading.service";
 import {finalize, Observable} from "rxjs";
 import {GroupDto} from "../models/dtos/group-dto";
+import {CourseDto} from "../models/dtos/course-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +11,12 @@ import {GroupDto} from "../models/dtos/group-dto";
 export class GroupService {
   constructor(
     private readonly httpClient: HttpClient,
-    private readonly loadingService: LoadingService
-  ) {
-  }
+  ) {}
 
   getGroups(): Observable<GroupDto[]> {
-    this.loadingService.startLoading();
     return this.httpClient.get<GroupDto[]>("/groups")
-      .pipe(
-        finalize(() => this.loadingService.stopLoading())
-      );
+  }
+  getGroupCourses(id: string): Observable<CourseDto[]> {
+    return this.httpClient.get<CourseDto[]>(`/groups/${id}`)
   }
 }
