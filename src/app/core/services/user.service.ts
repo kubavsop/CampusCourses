@@ -106,6 +106,10 @@ export class UserService {
     this.userClaimsSubject$.next([UserClaim.NOT_AUTH]);
   }
 
+  isAdmin(): boolean {
+    return this.userClaimsSubject$.getValue().includes(UserClaim.ADMIN)
+  }
+
   private updateProfile(): void {
     this.getProfile().subscribe();
   }

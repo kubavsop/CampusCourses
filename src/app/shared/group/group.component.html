@@ -1,0 +1,10 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>{{ title }}</mat-card-title>
+  </mat-card-content>
+  <mat-card-actions align="end" *ngIf="userService.isAdmin()">
+    <button mat-button color="primary">РЕДАКТИРОВАТЬ</button>
+    <button mat-button color="warn">УДАЛИТЬ</button>
+  </mat-card-actions>
+</mat-card>
+
