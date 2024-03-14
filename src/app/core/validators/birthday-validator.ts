@@ -1,6 +1,5 @@
 import {AbstractControl, ValidationErrors, ValidatorFn} from "@angular/forms";
 
-
 export const BirthdayValidator: ValidatorFn = (
   control: AbstractControl
 ): ValidationErrors | null => {

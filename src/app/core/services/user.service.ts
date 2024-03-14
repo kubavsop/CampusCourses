@@ -8,6 +8,8 @@ import {UserRolesDto} from "../models/dtos/user-roles-dto";
 import {UserClaim} from "../models/user-claim";
 import {ProfileDto} from "../models/dtos/profile-dto";
 import {LoginDto} from "../models/dtos/login-dto";
+import {LoadingService} from "./loading.service";
+import {EditProfileDto} from "../models/dtos/edit-profile-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +17,9 @@ import {LoginDto} from "../models/dtos/login-dto";
 export class UserService {
 
   private readonly userClaimsSubject$ = new BehaviorSubject<UserClaim[]>([UserClaim.NOT_AUTH]);
-  private readonly loadingSubject$ = new BehaviorSubject<boolean>(false);
   private readonly profileSubject$ = new BehaviorSubject<ProfileDto | null>(null);
 
   public readonly userClaim$ = this.userClaimsSubject$
-    .asObservable()
-    .pipe(distinctUntilChanged());
-
-  public readonly loading$ = this.loadingSubject$
     .asObservable()
     .pipe(distinctUntilChanged());
 
@@ -31,12 +28,13 @@ export class UserService {
     .pipe(distinctUntilChanged());
 
   constructor(
-    private httpClient: HttpClient,
-    private jwtService: JwtService
+    private readonly httpClient: HttpClient,
+    private readonly jwtService: JwtService,
+    private readonly loadingService: LoadingService
   ) {}
 
   register(registerDto: RegisterDto): Observable<TokenResponseDto> {
-    this.startLoading();
+    this.loadingService.startLoading();
     return this.httpClient.post<TokenResponseDto>("/registration", registerDto)
       .pipe(
         tap(
@@ -46,13 +44,13 @@ export class UserService {
             this.updateProfile();
           }),
         finalize(() => {
-          this.stopLoading()
+          this.loadingService.stopLoading()
         })
       );
   }
 
   login(loginDto: LoginDto): Observable<TokenResponseDto> {
-    this.startLoading();
+    this.loadingService.startLoading();
     return this.httpClient.post<TokenResponseDto>("/login", loginDto)
       .pipe(
         tap(
@@ -62,35 +60,43 @@ export class UserService {
             this.updateProfile();
           }),
         finalize(() => {
-          this.stopLoading()
+          this.loadingService.stopLoading()
         })
       )
   }
 
   getProfile(): Observable<ProfileDto> {
-    this.startLoading();
+    this.loadingService.startLoading();
     return this.httpClient.get<ProfileDto>("/profile")
       .pipe(
         tap((profile: ProfileDto) => this.profileSubject$.next(profile)),
-        finalize(() => this.stopLoading())
+        finalize(() => this.loadingService.stopLoading())
+      );
+  }
+
+  editProfile(dto: EditProfileDto): Observable<object> {
+    this.loadingService.startLoading();
+    return this.httpClient.put("/profile", dto)
+      .pipe(
+        finalize(() => this.loadingService.stopLoading())
       );
   }
 
   getRoles(): Observable<UserRolesDto> {
-    this.startLoading();
+    this.loadingService.startLoading();
     return this.httpClient.get<UserRolesDto>("/roles")
       .pipe(
         tap((roles: UserRolesDto) => this.userClaimsSubject$.next(this.getClaims(roles))),
-        finalize(() => this.stopLoading())
+        finalize(() => this.loadingService.stopLoading())
       );
   }
 
-  logout(): Observable<any> {
-    this.startLoading();
+  logout(): Observable<object> {
+    this.loadingService.startLoading();
     return this.httpClient.post("/logout", null)
       .pipe(
         tap(() => this.purgeAuth()),
-        finalize(() => this.stopLoading())
+        finalize(() => this.loadingService.stopLoading())
       );
   }
 
@@ -106,14 +112,6 @@ export class UserService {
 
   private updateRoles(): void {
     this.getRoles().subscribe();
-  }
-
-  private startLoading(): void {
-    this.loadingSubject$.next(true);
-  }
-
-  private stopLoading(): void {
-    this.loadingSubject$.next(false);
   }
 
   private setToken(tokenResponse: TokenResponseDto): void {

@@ -1,1 +1,43 @@
-<p>profile works!</p>
+<form [formGroup]="form" class="edit-form-group" (ngSubmit)="submitForm()" *ngIf="!initialLoading">
+
+  <mat-form-field appearance="outline" hideRequiredMarker="true">
+    <mat-label>ФИО</mat-label>
+    <input matInput [formControl]=fullName>
+    @if (fullName.hasError('required')) {
+      <mat-error>Введите ФИО</mat-error>
+    }
+  </mat-form-field>
+
+
+  <mat-form-field appearance="outline" hideRequiredMarker="true">
+    <mat-label aria-required="false">Email</mat-label>
+    <input matInput [formControl]=email readonly>
+    @if (email.hasError('email') && !email.hasError('required')) {
+      <mat-error>Некорректный email</mat-error>
+    }
+    @if (email.hasError('required')) {
+      <mat-error>Введите email</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" hideRequiredMarker="true">
+    <mat-label>День рождения</mat-label>
+    <input matInput [matDatepicker]="picker" [formControl]=birthDay>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    @if (birthDay.hasError("required")){
+      <mat-error>Введите дату в формате ДД/ММ/ГГГГ</mat-error>
+    }
+    @else if (birthDay.hasError("WrongRange")){
+      <mat-error>Недопустимая дата рождения</mat-error>
+    }
+  </mat-form-field>
+
+  <button
+    mat-flat-button
+    class="edit_button"
+    type="submit"
+    [disabled]="!isFormValid()"
+    color="primary">Изменить
+  </button>
+</form>

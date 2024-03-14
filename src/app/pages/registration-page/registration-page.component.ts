@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
-import {provideNativeDateAdapter} from '@angular/material/core';
 import {
   MatDatepickerInput,
   MatDatepickerModule,
@@ -19,6 +18,8 @@ import {ConfirmPasswordMatcher} from "../../core/validators/confirm-password-mat
 import {RegexPatterns} from "../../core/validators/regex-patterns";
 import {BirthdayValidator} from "../../core/validators/birthday-validator";
 import {RegisterDto} from "../../core/models/dtos/register-dto";
+import {LoadingService} from "../../core/services/loading.service";
+import {convertToIsoDateString} from "../../shared/util/date-string-converter";
 
 @Component({
   selector: 'app-registration-page',
@@ -55,11 +56,12 @@ export class RegistrationPageComponent implements OnInit, OnDestroy {
   constructor(
     private readonly router: Router,
     private readonly userService: UserService,
+    private readonly loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.userService.loading$.subscribe((flag) => {
-      this.isLoading = flag
+    this.subscription = this.loadingService.loading$.subscribe((flag) => {
+      this.isLoading = flag;
     });
   }
 
@@ -70,7 +72,7 @@ export class RegistrationPageComponent implements OnInit, OnDestroy {
       password: this.form.value.password!,
       confirmPassword: this.form.value.password!,
       fullName: this.form.value.fullName!,
-      birthDate: (new Date(this.form.value.birthDate!)).toISOString()
+      birthDate: convertToIsoDateString(this.form.value.birthDate!)
     }
 
     this.userService.register(dto)

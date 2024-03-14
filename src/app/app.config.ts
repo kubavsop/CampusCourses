@@ -7,11 +7,10 @@ import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import {apiInterceptor} from "./core/interceptors/api.interceptor";
 import {tokenInterceptor} from "./core/interceptors/token.interceptor";
 import {UserService} from "./core/services/user.service";
-import {combineLatest, delay, EMPTY, Observable} from "rxjs";
+import {combineLatest, EMPTY, Observable} from "rxjs";
 import {JwtService} from "./core/services/jwt.service";
 import {errorInterceptor} from "./core/interceptors/error.interceptor";
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 function initializeAppFactory(userService: UserService, jwtService: JwtService): () => Observable<any> {

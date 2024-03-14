@@ -13,6 +13,7 @@ import {MatProgressBar} from "@angular/material/progress-bar";
 import {NgIf} from "@angular/common";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {ProfileDto} from "../../core/models/dtos/profile-dto";
+import {LoadingService} from "../../core/services/loading.service";
 
 
 @Component({
@@ -46,9 +47,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    private router: Router,
-    private userService: UserService,
-    private breakPointObserver: BreakpointObserver
+    private readonly router: Router,
+    private readonly userService: UserService,
+    private readonly loadingService: LoadingService,
+    private readonly breakPointObserver: BreakpointObserver
   ) {
     this.headerItems =
       [
@@ -64,7 +66,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.push(
-      this.userService.loading$.subscribe(
+      this.loadingService.loading$.subscribe(
         (loading: boolean) => this.loading = loading
       )
     );

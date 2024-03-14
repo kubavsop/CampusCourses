@@ -1,13 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ConfirmPasswordMatcher} from "../../core/validators/confirm-password-matcher";
 import {Subscription} from "rxjs";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {BirthdayValidator} from "../../core/validators/birthday-validator";
 import {RegexPatterns} from "../../core/validators/regex-patterns";
-import {confirmPasswordValidator} from "../../core/validators/confirm-password-validator";
 import {Router} from "@angular/router";
 import {UserService} from "../../core/services/user.service";
-import {RegisterDto} from "../../core/models/dtos/register-dto";
 import {showErrorPopup} from "../../shared/util/popup";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
@@ -15,6 +11,7 @@ import {MatError, MatFormField, MatLabel, MatSuffix} from "@angular/material/for
 import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
 import {LoginDto} from "../../core/models/dtos/login-dto";
+import {LoadingService} from "../../core/services/loading.service";
 
 @Component({
   selector: 'app-login',
@@ -51,10 +48,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private readonly router: Router,
     private readonly userService: UserService,
+    private readonly loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.userService.loading$.subscribe((flag) => {
+    this.subscription = this.loadingService.loading$.subscribe((flag) => {
       this.isLoading = flag
     });
   }
@@ -84,7 +82,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   get password() {
     return this.form.controls.password
   }
-
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
