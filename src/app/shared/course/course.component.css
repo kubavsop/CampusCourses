@@ -3,9 +3,12 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  text-align: center;
 }
 
 .title {
   margin-right: 10px;
+}
+
+.status {
+  text-align: center;
 }

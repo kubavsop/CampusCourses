@@ -2,7 +2,7 @@
   <mat-card-header>
     <div class="title-container">
       <mat-card-title class="title">{{ courseDto.name }}</mat-card-title>
-      <mat-card-subtitle [style.color]="statusColor">{{ getCourseStatusName(courseDto.status) }}</mat-card-subtitle>
+      <mat-card-subtitle [style.color]="statusColor" class="status">{{ getCourseStatusName(courseDto.status) }}</mat-card-subtitle>
     </div>
   </mat-card-header>
   <mat-card-content>Учебный год - {{courseDto.startYear}}-{{courseDto.startYear+1}}</mat-card-content>
