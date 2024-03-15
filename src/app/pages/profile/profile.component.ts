@@ -110,7 +110,6 @@ export class ProfileComponent {
 
   isFormValid(): boolean {
     if (this.form.value.birthDate == null) return false;
-    console.log(this.form.value.birthDate)
     return this.form.valid && !this.isLoading && (this.currentState.fullName !== this.form.value.fullName || !this.compareDates(this.currentState.birthDate, this.form.value.birthDate));
   }
 

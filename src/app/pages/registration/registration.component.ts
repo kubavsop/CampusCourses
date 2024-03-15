@@ -22,7 +22,7 @@ import {LoadingService} from "../../core/services/loading.service";
 import {convertToIsoDateString} from "../../shared/util/date-string-converter";
 
 @Component({
-  selector: 'app-registration-page',
+  selector: 'app-registration',
   standalone: true,
   imports: [
     MatFormFieldModule,
@@ -34,10 +34,10 @@ import {convertToIsoDateString} from "../../shared/util/date-string-converter";
     MatButtonModule,
     MatIconModule,
   ],
-  templateUrl: './registration-page.component.html',
-  styleUrl: './registration-page.component.css'
+  templateUrl: './registration.component.html',
+  styleUrl: './registration.component.css'
 })
-export class RegistrationPageComponent implements OnInit, OnDestroy {
+export class RegistrationComponent implements OnInit, OnDestroy {
   readonly confirmPasswordMatcher = new ConfirmPasswordMatcher()
   hidePassword = true
   isLoading: boolean = false
