@@ -5,7 +5,10 @@ import {GroupService} from "../../core/services/group.service";
 import {GroupDto} from "../../core/models/dtos/group-dto";
 import {NgIf} from "@angular/common";
 import {UserService} from "../../core/services/user.service";
-import {showErrorPopup} from "../../shared/util/popup";
+import {showErrorPopup, showPopup, showSuccessfulPopup} from "../../shared/util/popup";
+import {MatDialog} from "@angular/material/dialog";
+import {CreateGroupComponent} from "../../shared/modals/create-group/create-group.component";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-groups',
@@ -19,28 +22,52 @@ import {showErrorPopup} from "../../shared/util/popup";
   styleUrl: './groups.component.css'
 })
 export class GroupsComponent implements OnInit {
-  initialLoading: boolean = true
+  loading: boolean = true
   groups: GroupDto[]
-
 
   constructor(
     private readonly groupService: GroupService,
+    public dialog: MatDialog,
     protected readonly userService: UserService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
+    this.updateGroups();
+  }
+
+  openCreateGroup(): void {
+    const dialogRef = this.dialog.open(CreateGroupComponent, {
+      width: '80vw',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (typeof result === 'string') {
+        this.groupService.createGroup({name: result}).subscribe({
+            next: () => {
+              showSuccessfulPopup("Группа успешно создана")
+              this.updateGroups()
+            },
+            error: (err) => {
+              showErrorPopup('Ошибка создании группы', err);
+            }
+          }
+        )
+      }
+    });
+  }
+
+  updateGroups(){
+    this.loading = true;
     this.groupService.getGroups()
       .subscribe({
           next: (groups: GroupDto[]) => {
             this.groups = groups
-            this.initialLoading = false
+            this.loading = false
           },
           error: (err) => {
             showErrorPopup('Ошибка загрузки групп', err);
           }
         }
-      )
+      );
   }
-
 }

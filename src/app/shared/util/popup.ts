@@ -17,3 +17,7 @@ export function showPopup(title: string, icon: SweetAlertIcon, message?: string)
 export function showErrorPopup(title: string, error: HttpErrorResponse): void {
   showPopup(title, 'error', error.statusText);
 }
+
+export function showSuccessfulPopup(title: string){
+  showPopup(title, 'success')
+}
