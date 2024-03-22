@@ -15,12 +15,14 @@ import {Router} from "@angular/router";
 export class GroupComponent {
   @Input({required: true}) title: string
   @Input({required: true}) groupId: string
+  @Input({required: true}) deleteGroup: (id: string) => void
 
 
   constructor(
     protected readonly userService: UserService,
     private readonly router: Router
-  ) {}
+  ) {
+  }
 
   navigateToGroupCourses() {
     this.router.navigate([`/groups/${this.groupId}`]);

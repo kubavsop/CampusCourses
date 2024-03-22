@@ -9,6 +9,7 @@ import {showErrorPopup, showPopup, showSuccessfulPopup} from "../../shared/util/
 import {MatDialog} from "@angular/material/dialog";
 import {CreateGroupComponent} from "../../shared/modals/create-group/create-group.component";
 import {error} from "@angular/compiler-cli/src/transformers/util";
+import {DeletionConfirmationComponent} from "../../shared/modals/deletion-confirmation/deletion-confirmation.component";
 
 @Component({
   selector: 'app-groups',
@@ -29,7 +30,9 @@ export class GroupsComponent implements OnInit {
     private readonly groupService: GroupService,
     public dialog: MatDialog,
     protected readonly userService: UserService
-  ) {}
+  ) {
+    this.openDeleteGroup = this.openDeleteGroup.bind(this);
+  }
 
   ngOnInit(): void {
     this.updateGroups();
@@ -56,8 +59,29 @@ export class GroupsComponent implements OnInit {
     });
   }
 
+  openDeleteGroup(id: string): void {
+    const dialogRef = this.dialog.open(DeletionConfirmationComponent, {
+      width: '80vw',
+      autoFocus: false
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.groupService.deleteGroup(id).subscribe({
+            next: () => {
+              showSuccessfulPopup("Группа успешно удалена")
+              this.updateGroups()
+            },
+            error: (err) => {
+              showErrorPopup('Ошибка удаление группы', err);
+            }
+          }
+        )
+      }
+    });
+  }
+
   updateGroups(){
-    this.loading = true;
     this.groupService.getGroups()
       .subscribe({
           next: (groups: GroupDto[]) => {

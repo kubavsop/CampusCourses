@@ -4,6 +4,6 @@
     <button mat-raised-button *ngIf="userService.isAdmin()" (click)="openCreateGroup()">Создать</button>
   </div>
   @for (group of groups; track group.id) {
-    <app-group [title]="group.name" [groupId]="group.id"></app-group>
+    <app-group [title]="group.name" [groupId]="group.id" [deleteGroup]="openDeleteGroup"></app-group>
   }
 </div>

@@ -24,4 +24,8 @@ export class GroupService {
   createGroup(dto: CreateGroupDto): Observable<object> {
     return this.httpClient.post("/groups", dto)
   }
+
+  deleteGroup(id: string): Observable<object> {
+    return this.httpClient.delete(`/groups/${id}`)
+  }
 }

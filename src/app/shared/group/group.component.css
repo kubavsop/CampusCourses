@@ -2,3 +2,8 @@
   cursor: pointer;
   text-decoration: underline;
 }
+
+.title{
+  display: inline-block;
+  text-overflow: ellipsis;
+}
