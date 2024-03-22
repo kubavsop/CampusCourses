@@ -16,15 +16,16 @@ export class GroupComponent {
   @Input({required: true}) title: string
   @Input({required: true}) groupId: string
   @Input({required: true}) deleteGroup: (id: string) => void
-
+  @Input({required: true}) editGroup: (id: string, name: string) => void
 
   constructor(
     protected readonly userService: UserService,
     private readonly router: Router
-  ) {
-  }
+  ) {}
 
   navigateToGroupCourses() {
     this.router.navigate([`/groups/${this.groupId}`]);
   }
+
+  protected readonly name = name;
 }

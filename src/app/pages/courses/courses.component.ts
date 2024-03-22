@@ -31,7 +31,6 @@ export class CoursesComponent implements OnInit {
   initialLoading: boolean = true
   courses: CourseDto[]
 
-
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly courseService: CourseService,
@@ -94,6 +93,10 @@ export class CoursesComponent implements OnInit {
         error: (err) => this.showCourseLoadingError(err)
       }
     )
+  }
+
+  openCreateCourse(){
+
   }
 
   private setCourses(courses: CourseDto[]): void {

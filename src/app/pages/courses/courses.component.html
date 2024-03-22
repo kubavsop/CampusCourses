@@ -1,7 +1,7 @@
 <div class="courses-container" *ngIf="!initialLoading">
   <div class="title-container">
     <h1 class="title">{{ title }}</h1>
-    <button mat-raised-button *ngIf="userService.isAdmin()">Создать</button>
+    <button mat-raised-button *ngIf="userService.isAdmin() && id != undefined">Создать</button>
   </div>
   @if (courses.length != 0) {
     @for (course of courses; track course.id) {

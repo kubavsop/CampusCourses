@@ -5,6 +5,7 @@ import {finalize, Observable} from "rxjs";
 import {GroupDto} from "../models/dtos/group-dto";
 import {CourseDto} from "../models/dtos/course-dto";
 import {CreateGroupDto} from "../models/dtos/create-group-dto";
+import {EditGroupDto} from "../models/dtos/edit-group-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,13 @@ import {CreateGroupDto} from "../models/dtos/create-group-dto";
 export class GroupService {
   constructor(
     private readonly httpClient: HttpClient,
-  ) {}
+  ) {
+  }
 
   getGroups(): Observable<GroupDto[]> {
     return this.httpClient.get<GroupDto[]>("/groups")
   }
+
   getGroupCourses(id: string): Observable<CourseDto[]> {
     return this.httpClient.get<CourseDto[]>(`/groups/${id}`)
   }
@@ -27,5 +30,9 @@ export class GroupService {
 
   deleteGroup(id: string): Observable<object> {
     return this.httpClient.delete(`/groups/${id}`)
+  }
+
+  editGroup(id: string, dto: EditGroupDto): Observable<object> {
+    return this.httpClient.put(`/groups/${id}`, dto);
   }
 }
