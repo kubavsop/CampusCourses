@@ -1,1 +1,90 @@
+<form [formGroup]="form" *ngIf="!loading">
+  <h1 mat-dialog-title class="title">Создание курса</h1>
+  <mat-dialog-content class="create-course-form">
 
+    <mat-form-field appearance="outline" hideRequiredMarker="true" class="first-field">
+      <mat-label>Название курса</mat-label>
+      <input matInput [formControl]=name>
+      @if (name.hasError('required')) {
+        <mat-error>Введите название</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" hideRequiredMarker="true">
+      <mat-label>Год начала курса</mat-label>
+      <input matInput [formControl]=startYear>
+      @if (startYear.hasError('required')) {
+        <mat-error>Введите год начала курса</mat-error>
+      }
+      @else if  (startYear.hasError("number")){
+        <mat-error>Введите число</mat-error>
+      }
+      @else if  (startYear.hasError('min')){
+        <mat-error>Минимальная возможная дата - {{ currentYear }}</mat-error>
+      }
+      @else if (startYear.hasError('max')){
+        <mat-error>Максимальная возможная дата - {{maxYear }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" hideRequiredMarker="true">
+      <mat-label>Общее количество мест</mat-label>
+      <input matInput [formControl]=numberOfPeople>
+      @if (numberOfPeople.hasError('required')) {
+        <mat-error>Введите количество мест</mat-error>
+      }
+      @else if  (numberOfPeople.hasError("number")){
+        <mat-error>Введите число</mat-error>
+      }
+      @else if  (numberOfPeople.hasError('min')){
+        <mat-error>Минимальное количество - 1</mat-error>
+      }
+      @else if  (numberOfPeople.hasError('max')){
+        <mat-error>Максимальное количество - 300</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-radio-group
+      [formControl]="semester">
+      <h3 class="label">Семестр</h3>
+      <mat-radio-button value="Spring">Весенний</mat-radio-button>
+      <mat-radio-button value="Autumn">Осенний</mat-radio-button>
+    </mat-radio-group>
+
+    <div>
+      <h3 class="label">Требования</h3>
+      <ckeditor [editor]="Editor" [formControl]="requirements"></ckeditor>
+      @if (requirements.hasError('required') && (requirements.touched || requirements.dirty)) {
+        <mat-error class="ckeditor-error">Напишите требования</mat-error>
+      }
+    </div>
+
+    <div>
+      <h3 class="label">Аннотации</h3>
+      <ckeditor [editor]="Editor" [formControl]="annotations"></ckeditor>
+      @if (annotations.hasError('required') && (annotations.touched || annotations.dirty)) {
+        <mat-error class="ckeditor-error">Напишите аннотацию</mat-error>
+      }
+    </div>
+
+    <mat-form-field appearance="outline" hideRequiredMarker="true">
+      <mat-label>Основной преподаватель курса</mat-label>
+      <mat-select [formControl]="mainTeacherId">
+        @for (user of users; track user.id) {
+          <mat-option [value]="user.id">{{ user.fullName }}</mat-option>
+        }
+      </mat-select>
+      @if (mainTeacherId.hasError('required')) {
+        <mat-error>Выберите учителя</mat-error>
+      }
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button (click)="onNoClick()" color="warn" class="action">Отменить</button>
+    <button mat-button class="action" color="primary" type="submit" [disabled]="!form.valid" (click)="onSubmit()">
+      Создать
+    </button>
+  </mat-dialog-actions>
+</form>

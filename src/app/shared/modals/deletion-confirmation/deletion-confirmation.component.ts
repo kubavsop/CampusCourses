@@ -23,7 +23,7 @@ import {
 })
 export class DeletionConfirmationComponent {
   constructor(
-    public dialogRef: MatDialogRef<DeletionConfirmationComponent>
+    public readonly dialogRef: MatDialogRef<DeletionConfirmationComponent>
   ) {}
   onNoClick(): void {
     this.dialogRef.close();

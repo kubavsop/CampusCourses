@@ -12,10 +12,9 @@ import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
   styleUrl: './create-group.component.css'
 })
 export class CreateGroupComponent {
-
   name= new FormControl('', {validators: [Validators.required]})
   constructor(
-    public dialogRef: MatDialogRef<CreateGroupComponent>
+    public readonly dialogRef: MatDialogRef<CreateGroupComponent>
   ) {}
 
   onNoClick(): void {

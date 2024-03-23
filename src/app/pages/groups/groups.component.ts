@@ -29,7 +29,7 @@ export class GroupsComponent implements OnInit {
 
   constructor(
     private readonly groupService: GroupService,
-    public dialog: MatDialog,
+    public readonly dialog: MatDialog,
     protected readonly userService: UserService
   ) {
     this.openDeleteGroup = this.openDeleteGroup.bind(this);
@@ -105,7 +105,7 @@ export class GroupsComponent implements OnInit {
     });
   }
 
-  updateGroups(): void {
+  private updateGroups(): void {
     this.groupService.getGroups()
       .subscribe({
           next: (groups: GroupDto[]) => {

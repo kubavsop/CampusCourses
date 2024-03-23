@@ -5,6 +5,7 @@ import {NgClass, NgIf} from "@angular/common";
 import {CourseDto} from "../../core/models/dtos/course-dto";
 import {Semester} from "../../core/models/enums/semester";
 import {CourseStatus} from "../../core/models/enums/course-statuses";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-course',
@@ -22,7 +23,9 @@ export class CourseComponent implements OnInit {
   @Input({required: true}) courseDto: CourseDto
   statusColor: string
 
-  constructor() {
+  constructor(
+    private readonly router: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -40,6 +43,10 @@ export class CourseComponent implements OnInit {
         this.statusColor = "#f44336"
         break;
     }
+  }
+
+  navigateToCourseDetails() {
+    this.router.navigate([`/courses/${this.courseDto.id}`]);
   }
 
   getSemesterName(semester: Semester): string {

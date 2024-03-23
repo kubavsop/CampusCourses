@@ -10,6 +10,7 @@ import {ProfileDto} from "../models/dtos/profile-dto";
 import {LoginDto} from "../models/dtos/login-dto";
 import {LoadingService} from "./loading.service";
 import {EditProfileDto} from "../models/dtos/edit-profile-dto";
+import {UserDto} from "../models/dtos/user-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -79,6 +80,10 @@ export class UserService {
       .pipe(
         tap((roles: UserRolesDto) => this.userClaimsSubject$.next(this.getClaims(roles)))
       );
+  }
+
+  getUsers(): Observable<UserDto[]> {
+    return this.httpClient.get<UserDto[]>("/users");
   }
 
   logout(): Observable<object> {

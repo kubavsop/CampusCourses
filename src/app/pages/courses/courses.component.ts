@@ -5,13 +5,17 @@ import {NgIf} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
 import {CoursesPageSource} from "../../core/models/enums/сourses-page-source";
 import {CourseService} from "../../core/services/course.service";
-import {showErrorPopup} from "../../shared/util/popup";
+import {showErrorPopup, showSuccessfulPopup} from "../../shared/util/popup";
 import {CourseDto} from "../../core/models/dtos/course-dto";
 import {HttpErrorResponse} from "@angular/common/http";
 import {GroupService} from "../../core/services/group.service";
 import {GroupDto} from "../../core/models/dtos/group-dto";
 import {combineLatest} from "rxjs";
 import {UserService} from "../../core/services/user.service";
+import {DeletionConfirmationComponent} from "../../shared/modals/deletion-confirmation/deletion-confirmation.component";
+import {CreateCourseComponent} from "../../shared/modals/create-course/create-course.component";
+import {MatDialog} from "@angular/material/dialog";
+import {CreateCourseDto} from "../../core/models/dtos/create-course-dto";
 
 @Component({
   selector: 'app-courses',
@@ -35,7 +39,8 @@ export class CoursesComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly courseService: CourseService,
     private readonly groupService: GroupService,
-    protected readonly userService: UserService
+    protected readonly userService: UserService,
+    public readonly dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +48,32 @@ export class CoursesComponent implements OnInit {
       this.pageSource = data['source'];
     });
 
+    this.updateCourse();
+  }
+
+  openCreateCourse(){
+    const dialogRef = this.dialog.open(CreateCourseComponent, {
+      width: '80vw'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.courseService.createCourse(result, this.id).subscribe({
+            next: () => {
+              this.updateCourse();
+              showSuccessfulPopup("Курс успешно изменена")
+            },
+            error: (err) => {
+              showErrorPopup('Ошибка создании курса', err);
+            }
+          }
+        )
+      }
+    });
+  }
+
+
+  private updateCourse(){
     switch (this.pageSource) {
       case CoursesPageSource.GROUP: {
         this.id = this.activatedRoute.snapshot.params['id'];
@@ -93,10 +124,6 @@ export class CoursesComponent implements OnInit {
         error: (err) => this.showCourseLoadingError(err)
       }
     )
-  }
-
-  openCreateCourse(){
-
   }
 
   private setCourses(courses: CourseDto[]): void {

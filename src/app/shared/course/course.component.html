@@ -1,11 +1,12 @@
 <mat-card>
   <mat-card-header>
     <div class="title-container">
-      <mat-card-title class="title">{{ courseDto.name }}</mat-card-title>
-      <mat-card-subtitle [style.color]="statusColor" class="status">{{ getCourseStatusName(courseDto.status) }}</mat-card-subtitle>
+      <mat-card-title class="title" (click)="navigateToCourseDetails()">{{ courseDto.name }}</mat-card-title>
+      <mat-card-subtitle [style.color]="statusColor" class="status">{{ getCourseStatusName(courseDto.status) }}
+      </mat-card-subtitle>
     </div>
   </mat-card-header>
-  <mat-card-content>Учебный год - {{courseDto.startYear}}-{{courseDto.startYear+1}}</mat-card-content>
+  <mat-card-content>Учебный год - {{ courseDto.startYear }}-{{ courseDto.startYear + 1 }}</mat-card-content>
   <mat-card-content>Семестр - {{ getSemesterName(courseDto.semester) }}</mat-card-content>
   <mat-card-content>
     <mat-card-subtitle>Мест всего - {{ courseDto.maximumStudentsCount }}</mat-card-subtitle>

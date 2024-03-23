@@ -35,7 +35,7 @@ export class EditGroupComponent {
   name = new FormControl('', {validators: [Validators.required]})
 
   constructor(
-    public dialogRef: MatDialogRef<EditGroupComponent>,
+    public readonly dialogRef: MatDialogRef<EditGroupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string
   ) {
     this.name.setValue(data);
