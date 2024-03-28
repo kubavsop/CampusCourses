@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {GroupComponent} from "../../shared/group/group.component";
+import {GroupComponent} from "../../shared/components/group/group.component";
 import {MatButtonModule} from "@angular/material/button";
 import {GroupService} from "../../core/services/group.service";
 import {GroupDto} from "../../core/models/dtos/group-dto";
 import {NgIf} from "@angular/common";
 import {UserService} from "../../core/services/user.service";
-import {showErrorPopup, showPopup, showSuccessfulPopup} from "../../shared/util/popup";
+import {showErrorPopup, showSuccessfulPopup} from "../../shared/util/popup";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateGroupComponent} from "../../shared/modals/create-group/create-group.component";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 import {DeletionConfirmationComponent} from "../../shared/modals/deletion-confirmation/deletion-confirmation.component";
 import {EditGroupComponent} from "../../shared/modals/edit-group/edit-group.component";
 

@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
-import {UserService} from "../../core/services/user.service";
+import {UserService} from "../../../core/services/user.service";
 import {NgIf} from "@angular/common";
 import {Router} from "@angular/router";
 

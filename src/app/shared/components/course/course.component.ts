@@ -2,9 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {NgClass, NgIf} from "@angular/common";
-import {CourseDto} from "../../core/models/dtos/course-dto";
-import {Semester} from "../../core/models/enums/semester";
-import {CourseStatus} from "../../core/models/enums/course-statuses";
+import {CourseDto} from "../../../core/models/dtos/course-dto";
+import {Semester} from "../../../core/models/enums/semester";
+import {CourseStatus} from "../../../core/models/enums/course-statuses";
 import {Router} from "@angular/router";
 
 @Component({

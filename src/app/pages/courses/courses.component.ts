@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CourseComponent} from "../../shared/course/course.component";
+import {CourseComponent} from "../../shared/components/course/course.component";
 import {MatButton} from "@angular/material/button";
 import {NgIf} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
@@ -61,7 +61,7 @@ export class CoursesComponent implements OnInit {
         this.courseService.createCourse(result, this.id).subscribe({
             next: () => {
               this.updateCourse();
-              showSuccessfulPopup("Курс успешно изменена")
+              showSuccessfulPopup("Курс успешно создан")
             },
             error: (err) => {
               showErrorPopup('Ошибка создании курса', err);

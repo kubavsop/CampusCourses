@@ -1,4 +1,4 @@
-<form [formGroup]="form" *ngIf="!loading">
+<form [formGroup]="form">
   <h1 mat-dialog-title class="title">Создание курса</h1>
   <mat-dialog-content class="create-course-form">
 
@@ -15,15 +15,12 @@
       <input matInput [formControl]=startYear>
       @if (startYear.hasError('required')) {
         <mat-error>Введите год начала курса</mat-error>
-      }
-      @else if  (startYear.hasError("number")){
+      } @else if (startYear.hasError("number")) {
         <mat-error>Введите число</mat-error>
-      }
-      @else if  (startYear.hasError('min')){
+      } @else if (startYear.hasError('min')) {
         <mat-error>Минимальная возможная дата - {{ currentYear }}</mat-error>
-      }
-      @else if (startYear.hasError('max')){
-        <mat-error>Максимальная возможная дата - {{maxYear }}</mat-error>
+      } @else if (startYear.hasError('max')) {
+        <mat-error>Максимальная возможная дата - {{ maxYear }}</mat-error>
       }
     </mat-form-field>
 
@@ -32,14 +29,11 @@
       <input matInput [formControl]=numberOfPeople>
       @if (numberOfPeople.hasError('required')) {
         <mat-error>Введите количество мест</mat-error>
-      }
-      @else if  (numberOfPeople.hasError("number")){
+      } @else if (numberOfPeople.hasError("number")) {
         <mat-error>Введите число</mat-error>
-      }
-      @else if  (numberOfPeople.hasError('min')){
+      } @else if (numberOfPeople.hasError('min')) {
         <mat-error>Минимальное количество - 1</mat-error>
-      }
-      @else if  (numberOfPeople.hasError('max')){
+      } @else if (numberOfPeople.hasError('max')) {
         <mat-error>Максимальное количество - 300</mat-error>
       }
     </mat-form-field>
@@ -67,17 +61,7 @@
       }
     </div>
 
-    <mat-form-field appearance="outline" hideRequiredMarker="true">
-      <mat-label>Основной преподаватель курса</mat-label>
-      <mat-select [formControl]="mainTeacherId">
-        @for (user of users; track user.id) {
-          <mat-option [value]="user.id">{{ user.fullName }}</mat-option>
-        }
-      </mat-select>
-      @if (mainTeacherId.hasError('required')) {
-        <mat-error>Выберите учителя</mat-error>
-      }
-    </mat-form-field>
+    <app-teacher-select title="Основной преподаватель курса" [control]="mainTeacherId"/>
 
   </mat-dialog-content>
 

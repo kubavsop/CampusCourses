@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -8,13 +8,13 @@ import {MatButton} from "@angular/material/button";
 import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
-import {UserService} from "../../../core/services/user.service";
-import {UserDto} from "../../../core/models/dtos/user-dto";
-import {showErrorPopup} from "../../util/popup";
 import {MatOption, MatSelect} from "@angular/material/select";
 import {numberValidator} from "../../../core/validators/number-validator";
 import {CreateCourseDto} from "../../../core/models/dtos/create-course-dto";
 import {NgIf} from "@angular/common";
+import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
+import {TeacherSelectComponent} from "../../components/teacher-select/teacher-select.component";
+import Editor from "@ckeditor/ckeditor5-build-classic";
 
 @Component({
   selector: 'app-create-course',
@@ -35,17 +35,17 @@ import {NgIf} from "@angular/common";
     MatRadioButton,
     MatSelect,
     MatOption,
-    NgIf
+    NgIf,
+    NgxMatSelectSearchModule,
+    TeacherSelectComponent
   ],
   templateUrl: './create-course.component.html',
   styleUrl: './create-course.component.css'
 })
 export class CreateCourseComponent {
   Editor = ClassicEditor
-  users: UserDto[]
   currentYear = (new Date).getFullYear()
   maxYear = this.currentYear + 6
-  loading = true
 
   readonly form = new FormGroup({
       name: new FormControl('', {validators: [Validators.required]}),
@@ -63,20 +63,8 @@ export class CreateCourseComponent {
   )
 
   constructor(
-    private readonly userService: UserService,
     public readonly dialogRef: MatDialogRef<CreateCourseComponent>
-  ) {
-    this.userService.getUsers().subscribe({
-        next: (users: UserDto[]) => {
-          this.users = users;
-          this.loading = false;
-        },
-        error: (err) => {
-          showErrorPopup("Ошибка загрузки пользователей", err);
-        }
-      }
-    );
-  }
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -125,6 +113,4 @@ export class CreateCourseComponent {
   get mainTeacherId() {
     return this.form.controls.mainTeacherId
   }
-
-  protected readonly Date = Date;
 }

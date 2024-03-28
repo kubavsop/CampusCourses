@@ -1,19 +1,19 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {MatToolbar} from "@angular/material/toolbar";
-import {UserService} from "../../core/services/user.service";
+import {UserService} from "../../../core/services/user.service";
 import {Subscription} from "rxjs";
 import {MatRipple} from "@angular/material/core";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
-import {UserClaim} from "../../core/models/user-claim";
-import {HeaderItem, HeaderItemPosition} from "../../core/models/header-item";
+import {UserClaim} from "../../../core/models/user-claim";
+import {HeaderItem, HeaderItemPosition} from "../../../core/models/header-item";
 import {MatProgressBar} from "@angular/material/progress-bar";
 import {NgIf} from "@angular/common";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
-import {ProfileDto} from "../../core/models/dtos/profile-dto";
-import {LoadingService} from "../../core/services/loading.service";
+import {ProfileDto} from "../../../core/models/dtos/profile-dto";
+import {LoadingService} from "../../../core/services/loading.service";
 
 
 @Component({
