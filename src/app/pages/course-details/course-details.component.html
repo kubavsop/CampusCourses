@@ -1,5 +1,5 @@
-<div class="course-details-container">
-  <h1>Имя курса</h1>
-
-
+<div class="course-details-container" *ngIf="!initialLoading">
+  <app-course-overview [courseDto]="courseDto"/>
+  <app-course-content [courseDto]="courseDto"/>
+  <app-course-participants [courseDto]="courseDto"/>
 </div>

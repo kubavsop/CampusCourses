@@ -5,7 +5,7 @@ import {NgIf} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
 import {CoursesPageSource} from "../../core/models/enums/сourses-page-source";
 import {CourseService} from "../../core/services/course.service";
-import {showErrorPopup, showSuccessfulPopup} from "../../shared/util/popup";
+import {showErrorPopup, showSuccessfulPopup} from "../../shared/utils/popup";
 import {CourseDto} from "../../core/models/dtos/course-dto";
 import {HttpErrorResponse} from "@angular/common/http";
 import {GroupService} from "../../core/services/group.service";
@@ -71,7 +71,6 @@ export class CoursesComponent implements OnInit {
       }
     });
   }
-
 
   private updateCourse(){
     switch (this.pageSource) {

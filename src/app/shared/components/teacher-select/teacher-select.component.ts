@@ -4,7 +4,7 @@ import {MatOption, MatSelect, MatSelectModule} from "@angular/material/select";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {UserDto} from "../../../core/models/dtos/user-dto";
-import {showErrorPopup} from "../../util/popup";
+import {showErrorPopup} from "../../utils/popup";
 import {UserService} from "../../../core/services/user.service";
 import {Subscription} from "rxjs";
 import {FilterUsersPipe} from "../../pipes/filter-users.pipe";

@@ -3,7 +3,7 @@ import {catchError, EMPTY, throwError} from "rxjs";
 import {inject} from "@angular/core";
 import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
-import {showErrorPopup} from "../../shared/util/popup";
+import {showErrorPopup} from "../../shared/utils/popup";
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const userService = inject(UserService);

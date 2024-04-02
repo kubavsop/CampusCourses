@@ -16,7 +16,7 @@
   flex-grow: 1;
 }
 
-.title{
+.title {
   text-align: center;
 }
 
@@ -24,7 +24,11 @@
   margin-bottom: 5px;
 }
 
-.ckeditor-error{
+.ckeditor-error {
   margin-left: 15px;
   font-size: 12px;
+}
+
+.last-item {
+  margin-top: 10px;
 }

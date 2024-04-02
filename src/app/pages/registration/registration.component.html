@@ -2,7 +2,7 @@
 
   <mat-form-field appearance="outline" hideRequiredMarker="true">
     <mat-label>ФИО</mat-label>
-    <input matInput [formControl]=fullName>
+    <input matInput formControlName="fullName">
     @if (fullName.hasError('required')) {
       <mat-error>Введите ФИО</mat-error>
     }
@@ -10,20 +10,20 @@
 
   <mat-form-field appearance="outline" hideRequiredMarker="true">
     <mat-label>День рождения</mat-label>
-    <input matInput [matDatepicker]="picker" [formControl]=birthDay>
+    <input matInput [matDatepicker]="picker" formControlName="birthday">
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
-    @if (birthDay.hasError("required")){
+    @if (birthday.hasError("required")){
       <mat-error>Введите дату в формате ДД/ММ/ГГГГ</mat-error>
     }
-    @else if (birthDay.hasError("WrongRange")){
+    @else if (birthday.hasError("WrongRange")){
       <mat-error>Недопустимая дата рождения</mat-error>
     }
   </mat-form-field>
 
   <mat-form-field appearance="outline" hideRequiredMarker="true">
     <mat-label aria-required="false">Email</mat-label>
-    <input matInput [formControl]=email>
+    <input matInput formControlName="email">
     @if (email.hasError('email') && !email.hasError('required')) {
       <mat-error>Некорректный email</mat-error>
     }
@@ -34,7 +34,7 @@
 
   <mat-form-field appearance="outline" hideRequiredMarker="true">
     <mat-label>Пароль</mat-label>
-    <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="password">
+    <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
     <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
       <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
     </button>
@@ -48,7 +48,7 @@
 
   <mat-form-field appearance="outline" hideRequiredMarker="true">
     <mat-label>Повторите пароль</mat-label>
-    <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="confirmPassword"
+    <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="confirmPassword"
            [errorStateMatcher]="confirmPasswordMatcher">
     <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
             [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">

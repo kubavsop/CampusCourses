@@ -11,7 +11,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {Router} from "@angular/router";
 import {UserService} from "../../core/services/user.service";
-import {showErrorPopup} from "../../shared/util/popup";
+import {showErrorPopup} from "../../shared/utils/popup";
 import {confirmPasswordValidator} from "../../core/validators/confirm-password-validator";
 import {Subscription} from "rxjs";
 import {ConfirmPasswordMatcher} from "../../core/validators/confirm-password-matcher";
@@ -19,7 +19,7 @@ import {RegexPatterns} from "../../core/validators/regex-patterns";
 import {BirthdayValidator} from "../../core/validators/birthday-validator";
 import {RegisterDto} from "../../core/models/dtos/register-dto";
 import {LoadingService} from "../../core/services/loading.service";
-import {convertToIsoDateString} from "../../shared/util/date-string-converter";
+import {convertToIsoDateString} from "../../shared/utils/date-string-converter";
 
 @Component({
   selector: 'app-registration',
@@ -45,7 +45,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   readonly form = new FormGroup({
       fullName: new FormControl('', {validators: [Validators.required],}),
-      birthDate: new FormControl('', {validators: [Validators.required, BirthdayValidator],}),
+      birthday: new FormControl('', {validators: [Validators.required, BirthdayValidator],}),
       email: new FormControl('', {validators: [Validators.required, Validators.email],}),
       password: new FormControl('', {validators: [Validators.required, Validators.pattern(RegexPatterns.Password)],}),
       confirmPassword: new FormControl('')
@@ -72,7 +72,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       password: this.form.value.password!,
       confirmPassword: this.form.value.password!,
       fullName: this.form.value.fullName!,
-      birthDate: convertToIsoDateString(this.form.value.birthDate!)
+      birthDate: convertToIsoDateString(this.form.value.birthday!)
     }
 
     this.userService.register(dto)
@@ -90,8 +90,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     return this.form.controls.fullName
   }
 
-  get birthDay() {
-    return this.form.controls.birthDate
+  get birthday() {
+    return this.form.controls.birthday
   }
 
   get email() {

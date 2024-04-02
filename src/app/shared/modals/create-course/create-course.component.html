@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
   <h1 mat-dialog-title class="title">Создание курса</h1>
   <mat-dialog-content class="create-course-form">
 
@@ -45,29 +45,25 @@
       <mat-radio-button value="Autumn">Осенний</mat-radio-button>
     </mat-radio-group>
 
-    <div>
-      <h3 class="label">Требования</h3>
-      <ckeditor [editor]="Editor" [formControl]="requirements"></ckeditor>
-      @if (requirements.hasError('required') && (requirements.touched || requirements.dirty)) {
-        <mat-error class="ckeditor-error">Напишите требования</mat-error>
+    <app-ckeditor-field label="Требования" [control]="requirements">
+      @if (requirements.hasError('required')) {
+        <mat-error error class="ckeditor-error">Напишите требования</mat-error>
       }
-    </div>
+    </app-ckeditor-field>
 
-    <div>
-      <h3 class="label">Аннотации</h3>
-      <ckeditor [editor]="Editor" [formControl]="annotations"></ckeditor>
-      @if (annotations.hasError('required') && (annotations.touched || annotations.dirty)) {
-        <mat-error class="ckeditor-error">Напишите аннотацию</mat-error>
+    <app-ckeditor-field label="Аннотации" [control]="annotations">
+      @if (annotations.hasError('required')) {
+        <mat-error error class="ckeditor-error">Напишите аннотацию</mat-error>
       }
-    </div>
+    </app-ckeditor-field>
 
-    <app-teacher-select title="Основной преподаватель курса" [control]="mainTeacherId"/>
+    <app-teacher-select title="Основной преподаватель курса" [control]="mainTeacherId" class="last-item"/>
 
   </mat-dialog-content>
 
   <mat-dialog-actions>
-    <button mat-button (click)="onNoClick()" color="warn" class="action">Отменить</button>
-    <button mat-button class="action" color="primary" type="submit" [disabled]="!form.valid" (click)="onSubmit()">
+    <button mat-button (click)="onNoClick()" color="warn" type="button" class="action">Отменить</button>
+    <button mat-button class="action" color="primary" type="submit" [disabled]="!form.valid">
       Создать
     </button>
   </mat-dialog-actions>

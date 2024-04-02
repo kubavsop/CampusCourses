@@ -15,6 +15,7 @@ import {NgIf} from "@angular/common";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {TeacherSelectComponent} from "../../components/teacher-select/teacher-select.component";
 import Editor from "@ckeditor/ckeditor5-build-classic";
+import {CkeditorFieldComponent} from "../../components/ckeditor-field/ckeditor-field.component";
 
 @Component({
   selector: 'app-create-course',
@@ -37,7 +38,8 @@ import Editor from "@ckeditor/ckeditor5-build-classic";
     MatOption,
     NgIf,
     NgxMatSelectSearchModule,
-    TeacherSelectComponent
+    TeacherSelectComponent,
+    CkeditorFieldComponent
   ],
   templateUrl: './create-course.component.html',
   styleUrl: './create-course.component.css'

@@ -1,14 +1,11 @@
 .course-details-container {
   margin-top: 30px;
-  max-width: 1200px;
+  max-width: 1400px;
   display: flex;
   flex-direction: column;
   margin-inline: auto;
-  gap: 30px;
+  gap: 25px;
   padding-left: 10px;
   padding-right: 10px;
 }
 
-.title {
-  text-align: center;
-}

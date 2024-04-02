@@ -4,7 +4,7 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {RegexPatterns} from "../../core/validators/regex-patterns";
 import {Router} from "@angular/router";
 import {UserService} from "../../core/services/user.service";
-import {showErrorPopup} from "../../shared/util/popup";
+import {showErrorPopup} from "../../shared/utils/popup";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
 import {MatError, MatFormField, MatLabel, MatSuffix} from "@angular/material/form-field";

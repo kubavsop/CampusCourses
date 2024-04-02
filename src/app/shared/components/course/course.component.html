@@ -2,7 +2,7 @@
   <mat-card-header>
     <div class="title-container">
       <mat-card-title class="title" (click)="navigateToCourseDetails()">{{ courseDto.name }}</mat-card-title>
-      <mat-card-subtitle [style.color]="statusColor" class="status">{{ getCourseStatusName(courseDto.status) }}
+      <mat-card-subtitle [style.color]="getCourseStatusColor(courseDto.status)" class="status">{{ getCourseStatusName(courseDto.status) }}
       </mat-card-subtitle>
     </div>
   </mat-card-header>

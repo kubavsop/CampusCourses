@@ -9,12 +9,12 @@ import {Subscription} from "rxjs";
 import {BirthdayValidator} from "../../core/validators/birthday-validator";
 import {UserService} from "../../core/services/user.service";
 import {LoadingService} from "../../core/services/loading.service";
-import {showErrorPopup} from "../../shared/util/popup";
+import {showErrorPopup} from "../../shared/utils/popup";
 import {EditProfileDto} from "../../core/models/dtos/edit-profile-dto";
 import {ProfileDto} from "../../core/models/dtos/profile-dto";
 import {NgIf} from "@angular/common";
 import moment from "moment";
-import {convertToIsoDateString} from "../../shared/util/date-string-converter";
+import {convertToIsoDateString} from "../../shared/utils/date-string-converter";
 
 @Component({
   selector: 'app-profile',

@@ -5,7 +5,7 @@ import {GroupService} from "../../core/services/group.service";
 import {GroupDto} from "../../core/models/dtos/group-dto";
 import {NgIf} from "@angular/common";
 import {UserService} from "../../core/services/user.service";
-import {showErrorPopup, showSuccessfulPopup} from "../../shared/util/popup";
+import {showErrorPopup, showSuccessfulPopup} from "../../shared/utils/popup";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateGroupComponent} from "../../shared/modals/create-group/create-group.component";
 import {DeletionConfirmationComponent} from "../../shared/modals/deletion-confirmation/deletion-confirmation.component";
