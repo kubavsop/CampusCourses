@@ -3,7 +3,7 @@
   <mat-form-field appearance="outline" hideRequiredMarker="true">
     <mat-label>ФИО</mat-label>
     <input matInput formControlName="fullName">
-    @if (fullName.hasError('required')) {
+    @if (fullName.hasError('required') || fullName.hasError("isEmpty")) {
       <mat-error>Введите ФИО</mat-error>
     }
   </mat-form-field>

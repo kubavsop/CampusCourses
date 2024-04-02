@@ -11,6 +11,7 @@ import {
 } from "@angular/material/dialog";
 import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
+import {EmptyValidator} from "../../../core/validators/empty-validator";
 
 @Component({
   selector: 'app-edit-group',
@@ -32,7 +33,7 @@ import {MatInput} from "@angular/material/input";
   styleUrl: './edit-group.component.css'
 })
 export class EditGroupComponent {
-  name = new FormControl('', {validators: [Validators.required]})
+  name = new FormControl('', {validators: [Validators.required, EmptyValidator]})
 
   constructor(
     public readonly dialogRef: MatDialogRef<EditGroupComponent>,

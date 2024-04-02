@@ -1,4 +1,25 @@
 .tab-group {
   border: 1px solid rgba(0, 0, 0, .2);
-  border-radius: 1px;
 }
+
+.tab-content {
+  padding: 10px;
+  border-top: 1px solid rgba(0, 0, 0, .2);
+}
+
+.notification-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  border-top: 1px solid rgba(0, 0, 0, .2);
+}
+
+.notification-badge {
+  border-radius: 5px;
+  background-color: #ffcccc;
+  padding: 4px;
+  margin-left: 4px;
+}
+
+

@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
+import {EmptyValidator} from "../../../core/validators/empty-validator";
 
 @Component({
   selector: 'app-create-group',
@@ -12,7 +13,7 @@ import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
   styleUrl: './create-group.component.css'
 })
 export class CreateGroupComponent {
-  name= new FormControl('', {validators: [Validators.required]})
+  name= new FormControl('', {validators: [Validators.required, EmptyValidator]})
   constructor(
     public readonly dialogRef: MatDialogRef<CreateGroupComponent>
   ) {}

@@ -16,6 +16,7 @@ import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {TeacherSelectComponent} from "../../components/teacher-select/teacher-select.component";
 import Editor from "@ckeditor/ckeditor5-build-classic";
 import {CkeditorFieldComponent} from "../../components/ckeditor-field/ckeditor-field.component";
+import {EmptyValidator} from "../../../core/validators/empty-validator";
 
 @Component({
   selector: 'app-create-course',
@@ -50,7 +51,7 @@ export class CreateCourseComponent {
   maxYear = this.currentYear + 6
 
   readonly form = new FormGroup({
-      name: new FormControl('', {validators: [Validators.required]}),
+      name: new FormControl('', {validators: [Validators.required, EmptyValidator]}),
       startYear: new FormControl(this.currentYear, {
         validators: [Validators.required, Validators.min(this.currentYear), Validators.max(this.maxYear), numberValidator],
       }),
@@ -58,8 +59,8 @@ export class CreateCourseComponent {
         validators: [Validators.required, Validators.min(1), Validators.max(300), numberValidator]
       }),
       semester: new FormControl(Semester.Spring),
-      requirements: new FormControl('', {validators: [Validators.required]}),
-      annotations: new FormControl('', {validators: [Validators.required]}),
+      requirements: new FormControl('', {validators: [Validators.required, EmptyValidator]}),
+      annotations: new FormControl('', {validators: [Validators.required, EmptyValidator]}),
       mainTeacherId: new FormControl('', {validators: [Validators.required]})
     }
   )

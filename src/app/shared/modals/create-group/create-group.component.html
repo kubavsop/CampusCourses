@@ -3,7 +3,7 @@
   <mat-form-field class="field" hideRequiredMarker="true">
     <mat-label>Название группы</mat-label>
     <input matInput [formControl]="name">
-    @if (name.hasError('required')){
+    @if (name.hasError('required') || name.hasError('isEmpty')){
       <mat-error>Введите имя группы</mat-error>
     }
   </mat-form-field>

@@ -20,6 +20,7 @@ import {BirthdayValidator} from "../../core/validators/birthday-validator";
 import {RegisterDto} from "../../core/models/dtos/register-dto";
 import {LoadingService} from "../../core/services/loading.service";
 import {convertToIsoDateString} from "../../shared/utils/date-string-converter";
+import {EmptyValidator} from "../../core/validators/empty-validator";
 
 @Component({
   selector: 'app-registration',
@@ -44,7 +45,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   subscription = new Subscription()
 
   readonly form = new FormGroup({
-      fullName: new FormControl('', {validators: [Validators.required],}),
+      fullName: new FormControl('', {validators: [Validators.required, EmptyValidator],}),
       birthday: new FormControl('', {validators: [Validators.required, BirthdayValidator],}),
       email: new FormControl('', {validators: [Validators.required, Validators.email],}),
       password: new FormControl('', {validators: [Validators.required, Validators.pattern(RegexPatterns.Password)],}),
