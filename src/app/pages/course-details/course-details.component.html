@@ -1,5 +1,5 @@
 <div class="course-details-container" *ngIf="!initialLoading">
   <app-course-overview [loadCourse]="loadCourse" [updateCourse]="updateCourse" [courseDto]="courseDto"/>
-  <app-course-content [courseDto]="courseDto"/>
+  <app-course-content [updateCourse]="updateCourse" [courseDto]="courseDto"/>
   <app-course-participants [courseDto]="courseDto"/>
 </div>

@@ -11,7 +11,8 @@
       <span class="notification-badge">{{ courseDto.notifications.length}}</span>
     </ng-template>
     <div class="notification-container">
-      <button mat-flat-button color="primary">Создать уведомление</button>
+      <button mat-flat-button color="primary" (click)="openCreateNotification()" *ngIf="userService.isAdmin() ||
+     courseService.userIsTeacher(courseDto.teachers, userService.getCurrentProfile().email)">Создать уведомление</button>
       @for (notification of courseDto.notifications; track notification) {
         <app-notification [notificationDto]="notification"></app-notification>
       }

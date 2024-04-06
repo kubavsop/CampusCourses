@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Создание уведомления</h1>
+<mat-dialog-content>
+  <mat-form-field class="field" hideRequiredMarker="true">
+    <mat-label>Текст</mat-label>
+    <input matInput [formControl]="text">
+    @if (text.hasError('required') || text.hasError("isEmpty")) {
+      <mat-error>Введите текст</mat-error>
+    }
+  </mat-form-field>
+  <mat-checkbox [(ngModel)]="isImportant" color="primary">Важное уведомление</mat-checkbox>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" color="warn" class="action">Отменить</button>
+  <button mat-button class="action" color="primary" type="submit" [disabled]="!text.valid"
+          (click)="onSubmit()">Создать
+  </button>
+</mat-dialog-actions>

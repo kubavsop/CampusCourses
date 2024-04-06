@@ -8,6 +8,7 @@ import {TeacherDto} from "../models/dtos/teacher-dto";
 import {EditCourseDto} from "../models/dtos/edit-course-dto";
 import {StudentDto} from "../models/dtos/student-dto";
 import {EditStatusCourseDto} from "../models/dtos/edit-status-course-dto";
+import {NotificationDto} from "../models/dtos/notification-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,10 @@ export class CourseService {
 
   signUp(id: string): Observable<object> {
     return this.httpClient.post(`/courses/${id}/sign-up`, null);
+  }
+
+  createNotification(dto: NotificationDto, id: string): Observable<CourseDetailsDto> {
+    return this.httpClient.post<CourseDetailsDto>(`/courses/${id}/notifications`, dto)
   }
 
   userIsTeacher(teachers: TeacherDto[], userEmail: string): boolean {
