@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Добавить преподавателя</h1>
+<mat-dialog-content>
+  <app-teacher-select title="Преподаватель курса" [control]="teacherId"/>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" color="warn" class="action">Отменить</button>
+  <button mat-button class="action" color="primary" type="submit" [disabled]="!teacherId.valid"
+          [mat-dialog-close]="teacherId.value">Добавить
+  </button>
+</mat-dialog-actions>

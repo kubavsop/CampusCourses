@@ -9,20 +9,22 @@
       </div>
       <div>{{ studentDto.email }}</div>
     </div>
-    <div class="result-container">
+    <div class="result-container"
+         *ngIf="studentDto.status == StudentStatuses.Accepted && (isTeacherOrAdmin ||
+          studentDto.email === userService.getCurrentProfile().email)">
       <div class="span-container">
-        <span class="result">Промежуточная аттестация</span>
+        <span [ngClass]="{'clickable-result': isTeacherOrAdmin}">Промежуточная аттестация</span>
         <span [style.background-color]="getStudentMarkColor(studentDto.midtermResult)"
               class="result-text">{{ getStudentMarkName(studentDto.midtermResult) }}</span>
       </div>
       <div class="span-container">
-        <span class="result">Финальная аттестация</span>
+        <span [ngClass]="{'clickable-result': isTeacherOrAdmin}">Финальная аттестация</span>
         <span [style.background-color]="getStudentMarkColor(studentDto.finalResult)"
               class="result-text">{{ getStudentMarkName(studentDto.finalResult) }}</span>
       </div>
     </div>
   </mat-card-content>
-  <mat-card-actions align="end">
+  <mat-card-actions align="end" *ngIf="isTeacherOrAdmin && studentDto.status == StudentStatuses.InQueue">
     <button mat-button color="primary" class="action">ПРИНЯТЬ</button>
     <button mat-button color="warn" class="action">ОТКЛОНИТЬ</button>
   </mat-card-actions>

@@ -20,8 +20,9 @@
   margin-top: 4px;
 }
 
-.result {
+.clickable-result {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .action {

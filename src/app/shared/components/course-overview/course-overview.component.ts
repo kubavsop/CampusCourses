@@ -87,7 +87,7 @@ export class CourseOverviewComponent {
               showSuccessfulPopup("Статус успешно изменен")
             },
             error: (err) => {
-              showErrorPopup('Ошибка изменения статуса', err);
+              showErrorPopup('Ошибка изменения', err);
             }
           }
         )
