@@ -16,8 +16,7 @@
     </div>
   </div>
   <div class="action-buttons">
-    <button mat-flat-button color="accent" *ngIf="!(userService.isAdmin() || userService.isAdmin() ||
-     courseService.userIsTeacher(courseDto.teachers, userService.getCurrentProfile().email) ||
+    <button mat-flat-button color="accent" (click)="openSignUp()" *ngIf="!(courseService.userIsTeacher(courseDto.teachers, userService.getCurrentProfile().email) ||
      courseService.userIsStudent(courseDto.students, userService.getCurrentProfile().email)) && courseDto.status == CourseStatus.OpenForAssigning">
       Записаться
     </button>

@@ -15,6 +15,7 @@ import {EditCourseDto} from "../../../core/models/dtos/edit-course-dto";
 import {EditCourseComponent} from "../../modals/edit-course/edit-course.component";
 import {EditCourseStatusComponent} from "../../modals/edit-course-status/edit-course-status.component";
 import {CourseStatus} from "../../../core/models/enums/course-statuses";
+import {SignUpComponent} from "../../modals/sign-up/sign-up.component";
 
 @Component({
   selector: 'app-course-overview',
@@ -29,6 +30,7 @@ import {CourseStatus} from "../../../core/models/enums/course-statuses";
 export class CourseOverviewComponent {
   @Input({required: true}) courseDto: CourseDetailsDto;
   @Input({required: true}) updateCourse: (course: CourseDetailsDto) => void;
+  @Input({required: true}) loadCourse: () => void;
   protected readonly getSemesterName = getSemesterName;
   protected readonly getCourseStatusColor = getCourseStatusColor;
   protected readonly getCourseStatusName = getCourseStatusName;
@@ -86,6 +88,28 @@ export class CourseOverviewComponent {
             },
             error: (err) => {
               showErrorPopup('Ошибка изменения статуса', err);
+            }
+          }
+        )
+      }
+    });
+  }
+
+  openSignUp() {
+    const dialogRef = this.dialog.open(SignUpComponent, {
+      width: '80vw',
+      autoFocus: false
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.courseService.signUp(this.courseDto.id).subscribe({
+            next: () => {
+              this.loadCourse();
+              showSuccessfulPopup("Успешная запись на курса")
+            },
+            error: (err) => {
+              showErrorPopup('Ошибка записи на курс', err);
             }
           }
         )

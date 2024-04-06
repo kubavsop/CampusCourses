@@ -7,7 +7,6 @@ import {CourseDetailsDto} from "../models/dtos/course-details-dto";
 import {TeacherDto} from "../models/dtos/teacher-dto";
 import {EditCourseDto} from "../models/dtos/edit-course-dto";
 import {StudentDto} from "../models/dtos/student-dto";
-import {CourseStatus} from "../models/enums/course-statuses";
 import {EditStatusCourseDto} from "../models/dtos/edit-status-course-dto";
 
 @Injectable({
@@ -17,7 +16,8 @@ export class CourseService {
 
   constructor(
     private readonly httpClient: HttpClient,
-  ) {}
+  ) {
+  }
 
   getMyCourses(): Observable<CourseDto[]> {
     return this.httpClient.get<CourseDto[]>("/courses/my");
@@ -31,7 +31,7 @@ export class CourseService {
     return this.httpClient.post(`/groups/${groupId}`, dto);
   }
 
-  getCourseDetails(id: string): Observable<CourseDetailsDto>{
+  getCourseDetails(id: string): Observable<CourseDetailsDto> {
     return this.httpClient.get<CourseDetailsDto>(`/courses/${id}/details`);
   }
 
@@ -47,8 +47,12 @@ export class CourseService {
     return this.httpClient.delete(`/courses/${id}`);
   }
 
-  editCourseStatus(dto: EditStatusCourseDto, id:string): Observable<CourseDetailsDto> {
+  editCourseStatus(dto: EditStatusCourseDto, id: string): Observable<CourseDetailsDto> {
     return this.httpClient.post<CourseDetailsDto>(`/courses/${id}/status`, dto);
+  }
+
+  signUp(id: string): Observable<object> {
+    return this.httpClient.post(`/courses/${id}/sign-up`, null);
   }
 
   userIsTeacher(teachers: TeacherDto[], userEmail: string): boolean {

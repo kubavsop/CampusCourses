@@ -7,6 +7,9 @@
 
 .action-buttons {
   margin-left: auto;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
 }
 
 .section-border-container {
@@ -55,6 +58,7 @@ p {
   gap: 5px;
   margin-left: auto;
   margin-bottom: 10px;
+  flex-wrap: wrap;
 }
 
 
