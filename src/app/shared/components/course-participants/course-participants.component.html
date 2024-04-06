@@ -13,7 +13,7 @@
   <mat-tab label="Студенты">
     <div class="tab-content">
       @for (student of courseDto.students; track student.id) {
-        <app-student [courseDto]="courseDto"  [studentDto]="student"></app-student>
+        <app-student [updateCourse]="updateCourse" [courseDto]="courseDto"  [studentDto]="student"></app-student>
       }
     </div>
   </mat-tab>

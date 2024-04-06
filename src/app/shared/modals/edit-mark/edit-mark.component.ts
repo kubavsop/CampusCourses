@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {StudentStatuses} from "../../../core/models/enums/student-statuses";
 
 @Component({
   selector: 'app-edit-mark',
@@ -8,5 +10,14 @@ import { Component } from '@angular/core';
   styleUrl: './edit-mark.component.css'
 })
 export class EditMarkComponent {
+  constructor(
+    public readonly dialogRef: MatDialogRef<EditMarkComponent>,
 
+  ) {
+  }
+
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }

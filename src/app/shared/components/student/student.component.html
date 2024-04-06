@@ -25,7 +25,7 @@
     </div>
   </mat-card-content>
   <mat-card-actions align="end" *ngIf="isTeacherOrAdmin && studentDto.status == StudentStatuses.InQueue">
-    <button mat-button color="primary" class="action">ПРИНЯТЬ</button>
-    <button mat-button color="warn" class="action">ОТКЛОНИТЬ</button>
+    <button mat-button color="primary" class="action" (click)="openAcceptStudent()">ПРИНЯТЬ</button>
+    <button mat-button color="warn" class="action" (click)="openRejectStudent()">ОТКЛОНИТЬ</button>
   </mat-card-actions>
 </mat-card>

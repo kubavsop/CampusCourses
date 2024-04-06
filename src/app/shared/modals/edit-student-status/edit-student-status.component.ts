@@ -1,6 +1,14 @@
-import { Component } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {MatButton} from "@angular/material/button";
-import {MatDialogActions, MatDialogTitle} from "@angular/material/dialog";
+import {
+  MAT_DIALOG_DATA,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogRef,
+  MatDialogTitle
+} from "@angular/material/dialog";
+import {StudentStatuses} from "../../../core/models/enums/student-statuses";
+import {StudentStatusAction} from "../../../core/models/enums/student-status-action";
 
 @Component({
   selector: 'app-edit-student-status',
@@ -8,11 +16,29 @@ import {MatDialogActions, MatDialogTitle} from "@angular/material/dialog";
   imports: [
     MatButton,
     MatDialogActions,
-    MatDialogTitle
+    MatDialogTitle,
+    MatDialogClose
   ],
   templateUrl: './edit-student-status.component.html',
   styleUrl: './edit-student-status.component.css'
 })
-export class EditStudentStatusComponent {
+export class EditStudentStatusComponent implements OnInit {
+  action: string
 
+  constructor(
+    public readonly dialogRef: MatDialogRef<EditStudentStatusComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: StudentStatusAction
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.action = this.data === StudentStatusAction.Accepted ? "Принять": "Отклонить";
+  }
+
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  protected readonly StudentStatusAction = StudentStatusAction;
 }
