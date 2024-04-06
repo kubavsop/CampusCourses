@@ -26,6 +26,4 @@ export class GroupComponent {
   navigateToGroupCourses() {
     this.router.navigate([`/groups/${this.groupId}`]);
   }
-
-  protected readonly name = name;
 }

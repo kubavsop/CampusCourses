@@ -1,18 +1,30 @@
 <div class="title-container">
   <h1 class="title">{{ courseDto.name }}</h1>
   <div class="button-group">
-    <button mat-raised-button color="primary">Редактировать</button>
-    <button mat-raised-button color="warn">Удалить</button>
+    <button mat-raised-button color="primary" (click)="openEditCourse()" *ngIf="userService.isAdmin() ||
+     courseService.userIsTeacher(courseDto.teachers, userService.getCurrentProfile().email)">
+      Редактировать
+    </button>
+    <button mat-raised-button color="warn" (click)="openDeleteCourse()" *ngIf="userService.isAdmin()">Удалить</button>
   </div>
 </div>
 <div class="section-border-container">
   <div>
     <p class="section-item">Статус курса</p>
-    <div [style.color]="getCourseStatusColor(courseDto.status)" class="section-item">{{ getCourseStatusName(courseDto.status) }}</div>
+    <div [style.color]="getCourseStatusColor(courseDto.status)"
+         class="section-item">{{ getCourseStatusName(courseDto.status) }}
+    </div>
   </div>
   <div class="action-buttons">
-    <button mat-flat-button color="accent">Записаться</button>
-    <button mat-flat-button color="primary">Изменить</button>
+    <button mat-flat-button color="accent" *ngIf="!(userService.isAdmin() || userService.isAdmin() ||
+     courseService.userIsTeacher(courseDto.teachers, userService.getCurrentProfile().email) ||
+     courseService.userIsStudent(courseDto.students, userService.getCurrentProfile().email)) && courseDto.status == CourseStatus.OpenForAssigning">
+      Записаться
+    </button>
+    <button mat-flat-button color="primary" *ngIf="(userService.isAdmin() ||
+     courseService.userIsTeacher(courseDto.teachers, userService.getCurrentProfile().email)) && courseDto.status != CourseStatus.Finished">
+      Изменить
+    </button>
   </div>
 </div>
 <div class="section-container">

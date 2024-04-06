@@ -30,15 +30,15 @@ a {
 
 a:hover,
 a.focus {
-  background-color: rgba(32, 33, 36, .04);
+  background-color: var(--focus-color);
 }
 
 a.item-selected {
-  background-color: rgba(26, 115, 232, .12);
+  background-color: var(--item-selected-color);
 }
 
 button.item-selected {
   pointer-events: none;
-  background-color: rgba(26, 115, 232, .12);
+  background-color: var(--item-selected-color);
 }
 

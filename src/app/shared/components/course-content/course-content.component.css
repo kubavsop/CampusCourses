@@ -1,10 +1,10 @@
 .tab-group {
-  border: 1px solid rgba(0, 0, 0, .2);
+  border: 1px solid var(--border-color);
 }
 
 .tab-content {
   padding: 10px;
-  border-top: 1px solid rgba(0, 0, 0, .2);
+  border-top: 1px solid var(--border-color);
 }
 
 .notification-container {
@@ -12,12 +12,12 @@
   flex-direction: column;
   gap: 10px;
   padding: 10px;
-  border-top: 1px solid rgba(0, 0, 0, .2);
+  border-top: 1px solid var(--border-color);
 }
 
 .notification-badge {
   border-radius: 5px;
-  background-color: #ffcccc;
+  background-color: var(--border-color);
   padding: 4px;
   margin-left: 4px;
 }

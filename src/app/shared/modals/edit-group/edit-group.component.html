@@ -10,7 +10,7 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()" color="warn" class="action">Отменить</button>
-  <button mat-button class="action" color="primary" type="submit" [disabled]="!name.valid"
+  <button mat-button class="action" color="primary" type="submit" [disabled]="!name.valid || checkCurrentState()"
           [mat-dialog-close]="name.value">Редактировать
   </button>
 </mat-dialog-actions>

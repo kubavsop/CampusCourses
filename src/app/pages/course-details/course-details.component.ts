@@ -35,9 +35,15 @@ export class CourseDetailsComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
   ) {
     this.id = activatedRoute.snapshot.params['id'];
+    this.updateCourse = this.updateCourse.bind(this);
   }
 
   ngOnInit(): void {
+    this.updateCourse();
+  }
+
+
+  updateCourse() {
     this.courseService.getCourseDetails(this.id).subscribe(
       {
         next: (course: CourseDetailsDto) => {

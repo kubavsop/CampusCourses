@@ -1,5 +1,5 @@
 export enum StudentMarks {
-  NotDefined,
-  Passed,
-  Failed
+  NotDefined = "NotDefined",
+  Passed = "Passed",
+  Failed = "Failed"
 }

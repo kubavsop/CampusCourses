@@ -1,3 +1,7 @@
 .important-notification {
-  background-color: #ffcccc;
+  background-color: var(--important-color);
+}
+
+.notification-text {
+  word-break: break-all;
 }

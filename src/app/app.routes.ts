@@ -16,8 +16,13 @@ export const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [notAuthGuard]},
   {path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
   {path: 'groups', component: GroupsComponent, canActivate: [authGuard]},
-  {path: 'groups/:id', component: CoursesComponent, canActivate: [authGuard],data: {source: CoursesPageSource.GROUP}},
-  {path: 'courses/my', component: CoursesComponent, canActivate: [authGuard],data: {source: CoursesPageSource.MY}},
-  {path: 'courses/teaching', component: CoursesComponent, canActivate: [authGuard], data: {source: CoursesPageSource.TEACHING}},
-  { path: 'courses/:id', component: CourseDetailsComponent, canActivate: [authGuard] }
+  {path: 'groups/:id', component: CoursesComponent, canActivate: [authGuard], data: {source: CoursesPageSource.GROUP}},
+  {path: 'courses/my', component: CoursesComponent, canActivate: [authGuard], data: {source: CoursesPageSource.MY}},
+  {
+    path: 'courses/teaching',
+    component: CoursesComponent,
+    canActivate: [authGuard],
+    data: {source: CoursesPageSource.TEACHING}
+  },
+  {path: 'courses/:id', component: CourseDetailsComponent, canActivate: [authGuard]}
 ];

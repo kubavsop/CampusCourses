@@ -2,13 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {RegisterDto} from "../models/dtos/register-dto";
 import {TokenResponseDto} from "../models/dtos/token-response-dto";
-import {BehaviorSubject, distinctUntilChanged, finalize, Observable, tap} from "rxjs";
+import {BehaviorSubject, distinctUntilChanged, Observable, tap} from "rxjs";
 import {JwtService} from "./jwt.service";
 import {UserRolesDto} from "../models/dtos/user-roles-dto";
 import {UserClaim} from "../models/user-claim";
 import {ProfileDto} from "../models/dtos/profile-dto";
 import {LoginDto} from "../models/dtos/login-dto";
-import {LoadingService} from "./loading.service";
 import {EditProfileDto} from "../models/dtos/edit-profile-dto";
 import {UserDto} from "../models/dtos/user-dto";
 
@@ -31,8 +30,7 @@ export class UserService {
   constructor(
     private readonly httpClient: HttpClient,
     private readonly jwtService: JwtService,
-  ) {
-  }
+  ) {}
 
   register(registerDto: RegisterDto): Observable<TokenResponseDto> {
 
@@ -87,7 +85,6 @@ export class UserService {
   }
 
   logout(): Observable<object> {
-
     return this.httpClient.post("/logout", null)
       .pipe(
         tap(() => this.purgeAuth())
@@ -106,6 +103,10 @@ export class UserService {
 
   isAuth(): boolean {
     return this.userClaimsSubject$.getValue().includes(UserClaim.AUTH)
+  }
+
+  getCurrentProfile(): ProfileDto {
+    return this.profileSubject$.value!
   }
 
   private updateProfile(): void {

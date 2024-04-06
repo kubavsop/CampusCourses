@@ -1,15 +1,7 @@
-.first-field {
-  margin-top: 3px;
-}
-
 .create-course-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
-}
-
-.mat-mdc-radio-button ~ .mat-mdc-radio-button {
-  margin-left: 16px;
 }
 
 .action {
@@ -20,15 +12,7 @@
   text-align: center;
 }
 
-.label {
-  margin-bottom: 5px;
-}
-
 .ckeditor-error {
   margin-left: 15px;
   font-size: 12px;
-}
-
-.last-item {
-  margin-top: 10px;
 }

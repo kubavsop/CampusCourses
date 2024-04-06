@@ -1,5 +1,5 @@
 export enum StudentStatuses {
-  InQueue,
-  Accepted,
-  Declined
+  InQueue= "InQueue",
+  Accepted = "Accepted",
+  Declined = "Declined"
 }

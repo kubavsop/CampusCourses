@@ -41,7 +41,7 @@ export class GroupsComponent implements OnInit {
 
   openCreateGroup(): void {
     const dialogRef = this.dialog.open(CreateGroupComponent, {
-      width: '80vw',
+      width: '80vw'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -74,7 +74,7 @@ export class GroupsComponent implements OnInit {
               this.updateGroups()
             },
             error: (err) => {
-              showErrorPopup('Ошибка удаление группы', err);
+              showErrorPopup('Ошибка удаления группы', err);
             }
           }
         )

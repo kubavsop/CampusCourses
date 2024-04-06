@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <h1 mat-dialog-title class="title">Создание курса</h1>
+  <h1 mat-dialog-title class="title">{{ title }}</h1>
   <mat-dialog-content class="create-course-form">
 
     <mat-form-field appearance="outline" hideRequiredMarker="true" class="first-field">
@@ -38,22 +38,17 @@
       }
     </mat-form-field>
 
-    <mat-radio-group
-      [formControl]="semester">
-      <h3 class="label">Семестр</h3>
-      <mat-radio-button value="Spring">Весенний</mat-radio-button>
-      <mat-radio-button value="Autumn">Осенний</mat-radio-button>
-    </mat-radio-group>
+    <app-radio-group label="Семестр" [control]="semester" [buttons]="radioButtons"></app-radio-group>
 
     <app-ckeditor-field label="Требования" [control]="requirements">
       @if (requirements.hasError('required') || requirements.hasError('isEmpty')) {
-        <mat-error error class="ckeditor-error">Напишите требования</mat-error>
+        <div error class="ckeditor-error">Напишите требования</div>
       }
     </app-ckeditor-field>
 
     <app-ckeditor-field label="Аннотации" [control]="annotations">
       @if (annotations.hasError('required') || annotations.hasError('isEmpty')) {
-        <mat-error error class="ckeditor-error">Напишите аннотацию</mat-error>
+        <div error class="ckeditor-error">Напишите аннотацию</div>
       }
     </app-ckeditor-field>
 
@@ -63,8 +58,8 @@
 
   <mat-dialog-actions>
     <button mat-button (click)="onNoClick()" color="warn" type="button" class="action">Отменить</button>
-    <button mat-button class="action" color="primary" type="submit" [disabled]="!form.valid">
-      Создать
+    <button mat-button class="action" color="primary" type="submit" [disabled]="!form.valid || checkCurrentState()">
+      {{ actionName }}
     </button>
   </mat-dialog-actions>
 </form>

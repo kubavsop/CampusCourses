@@ -1,7 +1,29 @@
 <mat-card>
-  <mat-card-content>
-    <mat-card-title>{{ studentDto.name }}</mat-card-title>
-    <div>Статус - {{ studentDto.status }}</div>
-    <div>{{ studentDto.email }}</div>
+  <mat-card-content class="container">
+    <div class="main-info-container">
+      <h2 class="title">{{ studentDto.name }}</h2>
+      <div>
+        <span>Статус - </span>
+        <span
+          [style.color]="getStudentStatusColor(studentDto.status)">{{ getStudentStatusName(studentDto.status) }}</span>
+      </div>
+      <div>{{ studentDto.email }}</div>
+    </div>
+    <div class="result-container">
+      <div class="span-container">
+        <span class="result">Промежуточная аттестация</span>
+        <span [style.background-color]="getStudentMarkColor(studentDto.midtermResult)"
+              class="result-text">{{ getStudentMarkName(studentDto.midtermResult) }}</span>
+      </div>
+      <div class="span-container">
+        <span class="result">Финальная аттестация</span>
+        <span [style.background-color]="getStudentMarkColor(studentDto.finalResult)"
+              class="result-text">{{ getStudentMarkName(studentDto.finalResult) }}</span>
+      </div>
+    </div>
   </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-button color="primary" class="action">ПРИНЯТЬ</button>
+    <button mat-button color="warn" class="action">ОТКЛОНИТЬ</button>
+  </mat-card-actions>
 </mat-card>

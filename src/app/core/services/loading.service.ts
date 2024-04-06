@@ -10,7 +10,6 @@ export class LoadingService {
     .asObservable()
     .pipe(distinctUntilChanged());
 
-
   public startLoading(): void {
     this.loadingSubject$.next(true);
   }

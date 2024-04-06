@@ -1,6 +1,6 @@
 import {Semester} from "../enums/semester";
 
-export interface CreateCourseDto {
+export interface ActionCourseDto {
   name: string
   startYear: number
   maximumStudentsCount: number

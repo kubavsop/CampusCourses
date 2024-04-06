@@ -1,0 +1,23 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h1 mat-dialog-title class="title">Редактирование курса</h1>
+  <mat-dialog-content class="create-course-form">
+    <app-ckeditor-field label="Требования" [control]="requirements">
+      @if (requirements.hasError('required') || requirements.hasError('isEmpty')) {
+        <div error class="ckeditor-error">Напишите требования</div>
+      }
+    </app-ckeditor-field>
+
+    <app-ckeditor-field label="Аннотации" [control]="annotations">
+      @if (annotations.hasError('required') || annotations.hasError('isEmpty')) {
+        <div error class="ckeditor-error">Напишите аннотацию</div>
+      }
+    </app-ckeditor-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button (click)="onNoClick()" color="warn" type="button" class="action">Отменить</button>
+    <button mat-button class="action" color="primary" type="submit" [disabled]="!form.valid || checkCurrentState()">
+      Редактировать
+    </button>
+  </mat-dialog-actions>
+</form>

@@ -1,5 +1,5 @@
 .tab-group {
-  border: 1px solid rgba(0, 0, 0, .2);
+  border: 1px solid var(--border-color);
 }
 
 .tab-content {
@@ -7,5 +7,5 @@
   flex-direction: column;
   gap: 10px;
   padding: 10px;
-  border-top: 1px solid rgba(0, 0, 0, .2);
+  border-top: 1px solid var(--border-color);
 }

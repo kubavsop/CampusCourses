@@ -1,0 +1,7 @@
+<mat-radio-group
+  [formControl]="control">
+  <h3 class="label"> {{ label }}</h3>
+  @for (button of buttons; track button) {
+    <mat-radio-button value="{{button.value}}">{{ button.name }}</mat-radio-button>
+  }
+</mat-radio-group>

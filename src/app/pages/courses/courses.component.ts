@@ -12,10 +12,8 @@ import {GroupService} from "../../core/services/group.service";
 import {GroupDto} from "../../core/models/dtos/group-dto";
 import {combineLatest} from "rxjs";
 import {UserService} from "../../core/services/user.service";
-import {DeletionConfirmationComponent} from "../../shared/modals/deletion-confirmation/deletion-confirmation.component";
-import {CreateCourseComponent} from "../../shared/modals/create-course/create-course.component";
+import {ActionWithCourseComponent} from "../../shared/modals/action-with-course/action-with-course.component";
 import {MatDialog} from "@angular/material/dialog";
-import {CreateCourseDto} from "../../core/models/dtos/create-course-dto";
 
 @Component({
   selector: 'app-courses',
@@ -52,7 +50,7 @@ export class CoursesComponent implements OnInit {
   }
 
   openCreateCourse(){
-    const dialogRef = this.dialog.open(CreateCourseComponent, {
+    const dialogRef = this.dialog.open(ActionWithCourseComponent, {
       width: '80vw'
     });
 

@@ -33,16 +33,22 @@ import {EmptyValidator} from "../../../core/validators/empty-validator";
   styleUrl: './edit-group.component.css'
 })
 export class EditGroupComponent {
+  currentState: string
   name = new FormControl('', {validators: [Validators.required, EmptyValidator]})
 
   constructor(
     public readonly dialogRef: MatDialogRef<EditGroupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string
   ) {
+    this.currentState = data;
     this.name.setValue(data);
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  checkCurrentState(): boolean {
+    return this.currentState == this.name.value;
   }
 }
