@@ -13,6 +13,7 @@ import {ActionWithCourseComponent} from "../../modals/action-with-course/action-
 import {ActionCourseDto} from "../../../core/models/dtos/action-course-dto";
 import {EditCourseDto} from "../../../core/models/dtos/edit-course-dto";
 import {EditCourseComponent} from "../../modals/edit-course/edit-course.component";
+import {EditCourseStatusComponent} from "../../modals/edit-course-status/edit-course-status.component";
 import {CourseStatus} from "../../../core/models/enums/course-statuses";
 
 @Component({
@@ -27,7 +28,7 @@ import {CourseStatus} from "../../../core/models/enums/course-statuses";
 })
 export class CourseOverviewComponent {
   @Input({required: true}) courseDto: CourseDetailsDto;
-  @Input({required: true}) updateCourse: () => void;
+  @Input({required: true}) updateCourse: (course: CourseDetailsDto) => void;
   protected readonly getSemesterName = getSemesterName;
   protected readonly getCourseStatusColor = getCourseStatusColor;
   protected readonly getCourseStatusName = getCourseStatusName;
@@ -70,8 +71,30 @@ export class CourseOverviewComponent {
     }
   }
 
+  openEditCourseStatus() {
+    const dialogRef = this.dialog.open(EditCourseStatusComponent, {
+      width: '80vw',
+      data: this.courseDto.status,
+      autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.courseService.editCourseStatus({status: result}, this.courseDto.id).subscribe({
+            next: (dto: CourseDetailsDto) => {
+              this.updateCourse(dto);
+              showSuccessfulPopup("Статус успешно изменен")
+            },
+            error: (err) => {
+              showErrorPopup('Ошибка изменения статуса', err);
+            }
+          }
+        )
+      }
+    });
+  }
 
-  openEditCourseByTeacher() {
+
+  private openEditCourseByTeacher() {
     const dto: EditCourseDto = {
       requirements: this.courseDto.requirements,
       annotations: this.courseDto.annotations,
@@ -85,8 +108,8 @@ export class CourseOverviewComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.courseService.editCourseByTeacher(result, this.courseDto.id).subscribe({
-            next: () => {
-              this.updateCourse();
+            next: (dto: CourseDetailsDto) => {
+              this.updateCourse(dto);
               showSuccessfulPopup("Курс успешно изменен")
             },
             error: (err) => {
@@ -98,7 +121,7 @@ export class CourseOverviewComponent {
     });
   }
 
-  openEditCourseByAdmin() {
+  private openEditCourseByAdmin() {
     const dto: ActionCourseDto = {
       name: this.courseDto.name,
       startYear: this.courseDto.startYear,
@@ -117,8 +140,8 @@ export class CourseOverviewComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.courseService.editCourseByAdmin(result, this.courseDto.id).subscribe({
-            next: () => {
-              this.updateCourse();
+            next: (dto: CourseDetailsDto) => {
+              this.updateCourse(dto);
               showSuccessfulPopup("Курс успешно изменен")
             },
             error: (err) => {

@@ -7,6 +7,8 @@ import {CourseDetailsDto} from "../models/dtos/course-details-dto";
 import {TeacherDto} from "../models/dtos/teacher-dto";
 import {EditCourseDto} from "../models/dtos/edit-course-dto";
 import {StudentDto} from "../models/dtos/student-dto";
+import {CourseStatus} from "../models/enums/course-statuses";
+import {EditStatusCourseDto} from "../models/dtos/edit-status-course-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -33,16 +35,20 @@ export class CourseService {
     return this.httpClient.get<CourseDetailsDto>(`/courses/${id}/details`);
   }
 
-  editCourseByAdmin(dto: ActionCourseDto, id: string): Observable<object> {
-    return this.httpClient.put(`/courses/${id}`, dto)
+  editCourseByAdmin(dto: ActionCourseDto, id: string): Observable<CourseDetailsDto> {
+    return this.httpClient.put<CourseDetailsDto>(`/courses/${id}`, dto)
   }
 
-  editCourseByTeacher(dto: EditCourseDto, id: string): Observable<object> {
-    return this.httpClient.put(`/courses/${id}/requirements-and-annotations`, dto);
+  editCourseByTeacher(dto: EditCourseDto, id: string): Observable<CourseDetailsDto> {
+    return this.httpClient.put<CourseDetailsDto>(`/courses/${id}/requirements-and-annotations`, dto);
   }
 
   deleteCourse(id: string): Observable<object> {
     return this.httpClient.delete(`/courses/${id}`);
+  }
+
+  editCourseStatus(dto: EditStatusCourseDto, id:string): Observable<CourseDetailsDto> {
+    return this.httpClient.post<CourseDetailsDto>(`/courses/${id}/status`, dto);
   }
 
   userIsTeacher(teachers: TeacherDto[], userEmail: string): boolean {

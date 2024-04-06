@@ -21,7 +21,7 @@
      courseService.userIsStudent(courseDto.students, userService.getCurrentProfile().email)) && courseDto.status == CourseStatus.OpenForAssigning">
       Записаться
     </button>
-    <button mat-flat-button color="primary" *ngIf="(userService.isAdmin() ||
+    <button mat-flat-button color="primary" (click)="openEditCourseStatus()" *ngIf="(userService.isAdmin() ||
      courseService.userIsTeacher(courseDto.teachers, userService.getCurrentProfile().email)) && courseDto.status != CourseStatus.Finished">
       Изменить
     </button>

@@ -93,7 +93,7 @@ export class ActionWithCourseComponent {
       this.annotations.setValue(data.annotations);
       this.mainTeacherId.setValue(data.mainTeacherId);
       this.title = "Редактирование курса"
-      this.actionName = "Редактировать"
+      this.actionName = "Сохранить"
     } else {
       this.title = "Создание курса"
       this.actionName = "Создать"

@@ -35,15 +35,16 @@ export class CourseDetailsComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
   ) {
     this.id = activatedRoute.snapshot.params['id'];
+    this.loadCourse = this.loadCourse.bind(this);
     this.updateCourse = this.updateCourse.bind(this);
   }
 
   ngOnInit(): void {
-    this.updateCourse();
+    this.loadCourse();
   }
 
 
-  updateCourse() {
+  loadCourse() {
     this.courseService.getCourseDetails(this.id).subscribe(
       {
         next: (course: CourseDetailsDto) => {
@@ -53,5 +54,9 @@ export class CourseDetailsComponent implements OnInit {
         error: (err) =>  showErrorPopup('Ошибка загрузки курса', err)
       }
     )
+  }
+
+  updateCourse(course: CourseDetailsDto) {
+    this.courseDto = course;
   }
 }
