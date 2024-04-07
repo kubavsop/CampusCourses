@@ -1,0 +1,28 @@
+.courses-container {
+  margin-top: 30px;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  margin-inline: auto;
+  gap: 15px;
+}
+
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  margin-right: 10px;
+  margin-bottom: 0;
+  margin-left: 10px;
+  word-break: break-all;
+}
+
+.empty{
+  text-align: center;
+  margin-top: 20px;
+}
+

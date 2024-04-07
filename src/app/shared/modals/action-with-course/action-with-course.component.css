@@ -1,0 +1,22 @@
+.first-field {
+  margin-top: 3px;
+}
+
+.create-course-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.action {
+  flex-grow: 1;
+}
+
+.title {
+  text-align: center;
+}
+
+.ckeditor-error {
+  margin-left: 15px;
+  font-size: 12px;
+}

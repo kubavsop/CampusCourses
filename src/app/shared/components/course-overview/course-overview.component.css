@@ -1,0 +1,64 @@
+.section-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.action-buttons {
+  margin-left: auto;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.section-border-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border: 1px solid var(--border-color);
+  border-radius: 1px;
+  gap: 5px;
+  padding: 10px 20px;
+  margin-bottom: 5px;
+  align-items: center;
+}
+
+.section {
+  flex: 1;
+  padding: 10px 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 1px;
+  margin-bottom: 5px;
+}
+
+p {
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.section-item {
+  white-space: nowrap;
+  font-size: 16px;
+}
+
+.title {
+  margin-right: 10px;
+  margin-left: 10px;
+  word-break: break-all;
+}
+
+.title-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.button-group {
+  display: flex;
+  gap: 5px;
+  margin-left: auto;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+

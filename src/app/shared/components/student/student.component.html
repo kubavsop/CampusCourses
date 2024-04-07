@@ -1,0 +1,31 @@
+<mat-card>
+  <mat-card-content class="container">
+    <div class="main-info-container">
+      <h2 class="title">{{ studentDto.name }}</h2>
+      <div>
+        <span>Статус - </span>
+        <span
+          [style.color]="getStudentStatusColor(studentDto.status)">{{ getStudentStatusName(studentDto.status) }}</span>
+      </div>
+      <div>{{ studentDto.email }}</div>
+    </div>
+    <div class="result-container"
+         *ngIf="studentDto.status == StudentStatuses.Accepted && (isTeacherOrAdmin ||
+          studentDto.email === userService.getCurrentProfile().email)">
+      <div class="span-container">
+        <span [ngClass]="{'clickable-result': isTeacherOrAdmin}" (click)="openEditMark(MarkType.Midterm)">Промежуточная аттестация</span>
+        <span [style.background-color]="getStudentMarkColor(studentDto.midtermResult)"
+              class="result-text">{{ getStudentMarkName(studentDto.midtermResult) }}</span>
+      </div>
+      <div class="span-container">
+        <span [ngClass]="{'clickable-result': isTeacherOrAdmin}" (click)="openEditMark(MarkType.Final)">Финальная аттестация</span>
+        <span [style.background-color]="getStudentMarkColor(studentDto.finalResult)"
+              class="result-text">{{ getStudentMarkName(studentDto.finalResult) }}</span>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions align="end" *ngIf="isTeacherOrAdmin && studentDto.status == StudentStatuses.InQueue">
+    <button mat-button color="primary" class="action" (click)="openAcceptStudent()">ПРИНЯТЬ</button>
+    <button mat-button color="warn" class="action" (click)="openRejectStudent()">ОТКЛОНИТЬ</button>
+  </mat-card-actions>
+</mat-card>

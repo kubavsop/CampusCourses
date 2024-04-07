@@ -1,0 +1,10 @@
+<h1 mat-dialog-title class="title">Изменение отметки для {{ title }}</h1>
+<mat-dialog-content>
+  <app-radio-group label="Студент - {{ data.studentName }}" [buttons]="radioButtons" [control]="mark"></app-radio-group>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" color="warn" class="action">Отменить</button>
+  <button mat-button class="action" color="primary" type="submit" [disabled]="!mark.valid || checkCurrentState()"
+          [mat-dialog-close]="mark.value">Сохранить
+  </button>
+</mat-dialog-actions>

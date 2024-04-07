@@ -1,0 +1,9 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>
+      <span class="title">{{ teacherDto.name }}</span>
+      <span class="main-label" *ngIf="teacherDto.isMain">основной</span>
+    </mat-card-title>
+    <p>{{ teacherDto.email }}</p>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,52 @@
+<div class="title-container">
+  <h1 class="title">{{ courseDto.name }}</h1>
+  <div class="button-group">
+    <button mat-raised-button color="primary" (click)="openEditCourse()" *ngIf="userService.isAdmin() ||
+     courseService.userIsTeacher(courseDto.teachers, userService.getCurrentProfile().email)">
+      Редактировать
+    </button>
+    <button mat-raised-button color="warn" (click)="openDeleteCourse()" *ngIf="userService.isAdmin()">Удалить</button>
+  </div>
+</div>
+<div class="section-border-container">
+  <div>
+    <p class="section-item">Статус курса</p>
+    <div [style.color]="getCourseStatusColor(courseDto.status)"
+         class="section-item">{{ getCourseStatusName(courseDto.status) }}
+    </div>
+  </div>
+  <div class="action-buttons">
+    <button mat-flat-button color="accent" (click)="openSignUp()" *ngIf="!(courseService.userIsTeacher(courseDto.teachers, userService.getCurrentProfile().email) ||
+     courseService.userIsStudent(courseDto.students, userService.getCurrentProfile().email)) && courseDto.status == CourseStatus.OpenForAssigning">
+      Записаться
+    </button>
+    <button mat-flat-button color="primary" (click)="openEditCourseStatus()" *ngIf="(userService.isAdmin() ||
+     courseService.userIsTeacher(courseDto.teachers, userService.getCurrentProfile().email)) && courseDto.status != CourseStatus.Finished">
+      Изменить
+    </button>
+  </div>
+</div>
+<div class="section-container">
+  <div class="section">
+    <p class="section-item">Учебный год</p>
+    <div class="section-item">{{ courseDto.startYear }}-{{ courseDto.startYear + 1 }}</div>
+  </div>
+  <div class="section">
+    <p class="section-item">Семестр</p>
+    <div class="section-item">{{ getSemesterName(courseDto.semester) }}</div>
+  </div>
+</div>
+<div class="section-container">
+  <div class="section">
+    <p class="section-item">Всего мест</p>
+    <div class="section-item">{{ courseDto.maximumStudentsCount }}</div>
+  </div>
+  <div class="section">
+    <p class="section-item">Заявок на рассмотрении</p>
+    <div class="section-item">{{ courseDto.studentsInQueueCount }}</div>
+  </div>
+  <div class="section">
+    <p class="section-item">Студентов зачислено</p>
+    <div class="section-item">{{ courseDto.studentsEnrolledCount }}</div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="groups-container" *ngIf="!loading">
+  <div class="title-container">
+    <h1 class="title">Группы кампусных курсов</h1>
+    <button mat-raised-button *ngIf="userService.isAdmin()" (click)="openCreateGroup()">Создать</button>
+  </div>
+  @for (group of groups; track group.id) {
+    <app-group [title]="group.name" [groupId]="group.id" [deleteGroup]="openDeleteGroup" [editGroup]="openEditGroup"></app-group>
+  }
+</div>

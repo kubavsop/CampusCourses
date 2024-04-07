@@ -1,0 +1,11 @@
+.action {
+  flex-grow: 1;
+}
+
+.first-field {
+  margin-top: 125px;
+}
+
+.title{
+  text-align: center;
+}

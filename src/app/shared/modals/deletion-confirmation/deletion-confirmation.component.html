@@ -1,0 +1,5 @@
+<h1 mat-dialog-title class="title">Подтверждение удаления</h1>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" color="primary" class="action">Отменить</button>
+  <button mat-button class="action" color="warn" [mat-dialog-close]="true">Удалить</button>
+</mat-dialog-actions>

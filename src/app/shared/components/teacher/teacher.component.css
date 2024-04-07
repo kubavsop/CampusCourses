@@ -1,0 +1,11 @@
+.main-label {
+  background: lightblue;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-left: 4px;
+}
+
+.title {
+  word-break: break-all;
+}

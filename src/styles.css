@@ -1,0 +1,23 @@
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  --important-color: #ffcccc;
+  --focus-color: #2021240a;
+  --item-selected-color: #1a73e81f;
+  --border-color: #00000033;
+
+  --in-queue-color: #3f51b5;
+  --accepted-color: #6f9444;
+  --declined-color: #f71100;
+
+  --created-color: #ff4081;
+  --open-color: #6f9444;
+  --started-color: #3f51b5;
+  --finished-color: #f71100;
+
+  --not-defined-color: #ff4081;
+  --passed-color: #6f9444;
+  --failed-color: #f71100;
+}

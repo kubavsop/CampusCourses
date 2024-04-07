@@ -1,0 +1,65 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h1 mat-dialog-title class="title">{{ title }}</h1>
+  <mat-dialog-content class="create-course-form">
+
+    <mat-form-field appearance="outline" hideRequiredMarker="true" class="first-field">
+      <mat-label>Название курса</mat-label>
+      <input matInput [formControl]=name>
+      @if (name.hasError('required') || name.hasError("isEmpty")) {
+        <mat-error>Введите название</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" hideRequiredMarker="true">
+      <mat-label>Год начала курса</mat-label>
+      <input matInput [formControl]=startYear>
+      @if (startYear.hasError('required')) {
+        <mat-error>Введите год начала курса</mat-error>
+      } @else if (startYear.hasError("number")) {
+        <mat-error>Введите число</mat-error>
+      } @else if (startYear.hasError('min')) {
+        <mat-error>Минимальная возможная дата - {{ currentYear }}</mat-error>
+      } @else if (startYear.hasError('max')) {
+        <mat-error>Максимальная возможная дата - {{ maxYear }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" hideRequiredMarker="true">
+      <mat-label>Общее количество мест</mat-label>
+      <input matInput [formControl]=numberOfPeople>
+      @if (numberOfPeople.hasError('required')) {
+        <mat-error>Введите количество мест</mat-error>
+      } @else if (numberOfPeople.hasError("number")) {
+        <mat-error>Введите число</mat-error>
+      } @else if (numberOfPeople.hasError('min')) {
+        <mat-error>Минимальное количество - 1</mat-error>
+      } @else if (numberOfPeople.hasError('max')) {
+        <mat-error>Максимальное количество - 300</mat-error>
+      }
+    </mat-form-field>
+
+    <app-radio-group label="Семестр" [control]="semester" [buttons]="radioButtons"></app-radio-group>
+
+    <app-ckeditor-field label="Требования" [control]="requirements">
+      @if (requirements.hasError('required') || requirements.hasError('isEmpty')) {
+        <div error class="ckeditor-error">Напишите требования</div>
+      }
+    </app-ckeditor-field>
+
+    <app-ckeditor-field label="Аннотации" [control]="annotations">
+      @if (annotations.hasError('required') || annotations.hasError('isEmpty')) {
+        <div error class="ckeditor-error">Напишите аннотацию</div>
+      }
+    </app-ckeditor-field>
+
+    <app-teacher-select title="Основной преподаватель курса" [control]="mainTeacherId"/>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button (click)="onNoClick()" color="warn" type="button" class="action">Отменить</button>
+    <button mat-button class="action" color="primary" type="submit" [disabled]="!form.valid || checkCurrentState()">
+      {{ actionName }}
+    </button>
+  </mat-dialog-actions>
+</form>

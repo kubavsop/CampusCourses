@@ -1,0 +1,6 @@
+<h1 mat-dialog-title class="title">{{ action }} заявку?</h1>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" color="warn" class="action">Отменить</button>
+  <button mat-button class="action" color="primary" [mat-dialog-close]="true">{{ action }}</button>
+</mat-dialog-actions>
+

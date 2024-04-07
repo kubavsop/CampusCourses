@@ -1,0 +1,7 @@
+.label {
+  margin-bottom: 5px;
+}
+
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+  margin-left: 20px;
+}

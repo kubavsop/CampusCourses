@@ -1,0 +1,20 @@
+<mat-tab-group class="tab-group">
+  <mat-tab label="Преподаватели">
+    <div class="tab-content">
+      <button mat-flat-button color="primary" (click)="openAddTeacher()"
+              *ngIf="userService.isAdmin() || courseService.userIsMainTeacher(courseDto.teachers, userService.getCurrentProfile().email)">
+        Добавить преподавателя
+      </button>
+      @for (teacher of courseDto.teachers; track teacher.email) {
+        <app-teacher [teacherDto]="teacher"></app-teacher>
+      }
+    </div>
+  </mat-tab>
+  <mat-tab label="Студенты">
+    <div class="tab-content">
+      @for (student of courseDto.students; track student.id) {
+        <app-student [updateCourse]="updateCourse" [courseDto]="courseDto"  [studentDto]="student"></app-student>
+      }
+    </div>
+  </mat-tab>
+</mat-tab-group>

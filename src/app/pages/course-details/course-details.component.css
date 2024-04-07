@@ -1,0 +1,9 @@
+.course-details-container {
+  margin-top: 30px;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+  margin-inline: auto;
+  gap: 25px;
+}
+

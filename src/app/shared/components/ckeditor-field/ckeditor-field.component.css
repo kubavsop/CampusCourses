@@ -1,0 +1,9 @@
+.label {
+  margin-bottom: 5px;
+}
+
+.errors {
+  color: red;
+  display: flex;
+  flex-direction: column;
+}

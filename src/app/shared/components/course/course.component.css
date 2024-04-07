@@ -1,0 +1,23 @@
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.title {
+  margin-right: 10px;
+  display: inline-block;
+  word-break: break-all;
+}
+
+.title:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.status {
+  text-align: center;
+}
+
+

@@ -1,0 +1,9 @@
+.title:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.title {
+  display: inline-block;
+  word-break: break-all;
+}

@@ -1,0 +1,9 @@
+<div>
+  <h3 class="label">{{ label }}</h3>
+  <ckeditor [editor]="Editor" [formControl]="control"></ckeditor>
+  @if (control.dirty || control.touched) {
+    <div class="errors">
+      <ng-content select="[error]"></ng-content>
+    </div>
+  }
+</div>

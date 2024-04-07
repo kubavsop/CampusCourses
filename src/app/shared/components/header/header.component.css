@@ -1,0 +1,44 @@
+.mat-toolbar {
+  gap: 8px;
+}
+
+.mat-toolbar a {
+  font-size: 16px;
+}
+
+span.title {
+  cursor: pointer;
+  margin-right: 30px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+a {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 8px 8px;
+  user-select: none;
+  color: unset;
+  text-decoration: none;
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+a:hover,
+a.focus {
+  background-color: var(--focus-color);
+}
+
+a.item-selected {
+  background-color: var(--item-selected-color);
+}
+
+button.item-selected {
+  pointer-events: none;
+  background-color: var(--item-selected-color);
+}
+

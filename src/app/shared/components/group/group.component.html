@@ -1,0 +1,10 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title (click)="navigateToGroupCourses()" class="title">{{ title }}</mat-card-title>
+  </mat-card-content>
+  <mat-card-actions align="end" *ngIf="userService.isAdmin()">
+    <button mat-button color="primary" (click)="editGroup(groupId, title)">РЕДАКТИРОВАТЬ</button>
+    <button mat-button color="warn" (click)="deleteGroup(groupId)">УДАЛИТЬ</button>
+  </mat-card-actions>
+</mat-card>
+

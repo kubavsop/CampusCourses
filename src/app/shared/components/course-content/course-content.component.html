@@ -1,0 +1,21 @@
+<mat-tab-group class="tab-group">
+  <mat-tab label="Требования к курсу">
+    <div [innerHTML]="courseDto.requirements" class="tab-content"></div>
+  </mat-tab>
+  <mat-tab label="Аннотация">
+    <div [innerHTML]="courseDto.annotations" class="tab-content"></div>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <span>Уведомления</span>
+      <span class="notification-badge">{{ courseDto.notifications.length}}</span>
+    </ng-template>
+    <div class="notification-container">
+      <button mat-flat-button color="primary" (click)="openCreateNotification()" *ngIf="userService.isAdmin() ||
+     courseService.userIsTeacher(courseDto.teachers, userService.getCurrentProfile().email)">Создать уведомление</button>
+      @for (notification of courseDto.notifications; track notification) {
+        <app-notification [notificationDto]="notification"></app-notification>
+      }
+    </div>
+  </mat-tab>
+</mat-tab-group>

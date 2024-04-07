@@ -1,0 +1,11 @@
+<h1 mat-dialog-title class="title">Изменение статуса курса</h1>
+<mat-dialog-content>
+  <app-radio-group [buttons]="radioButtons" [control]="group">
+  </app-radio-group>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" color="warn" class="action">Отменить</button>
+  <button mat-button class="action" color="primary" type="submit" [disabled]="!group.valid || checkCurrentState()"
+          [mat-dialog-close]="group.value">Сохранить
+  </button>
+</mat-dialog-actions>

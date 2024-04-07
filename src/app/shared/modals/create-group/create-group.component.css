@@ -1,0 +1,11 @@
+.field {
+  width: 100%;
+}
+
+.action {
+  flex-grow: 1;
+}
+
+.title{
+  text-align: center;
+}
