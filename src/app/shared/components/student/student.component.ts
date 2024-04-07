@@ -17,6 +17,9 @@ import {StudentStatusAction} from "../../../core/models/enums/student-status-act
 import {showErrorPopup, showSuccessfulPopup} from "../../utils/popup";
 import {EditStudentStatusComponent} from "../../modals/edit-student-status/edit-student-status.component";
 import {MatDialog} from "@angular/material/dialog";
+import {EditMarkModel} from "../../../core/models/edit-mark-model";
+import {MarkType} from "../../../core/models/enums/mark-type";
+import {EditMarkComponent} from "../../modals/edit-mark/edit-mark.component";
 
 @Component({
   selector: 'app-student',
@@ -89,4 +92,41 @@ export class StudentComponent implements OnInit {
       }
     });
   }
+
+  openEditMark(markType: MarkType) {
+    if (!this.isTeacherOrAdmin) return;
+
+    const model: EditMarkModel = {
+      studentName: this.studentDto.name,
+      markType: markType,
+      mark: markType == MarkType.Final ? this.studentDto.finalResult : this.studentDto.midtermResult
+    }
+
+    const dialogRef = this.dialog.open(EditMarkComponent, {
+      width: '80vw',
+      autoFocus: false,
+      data: model
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.courseService.editMark(
+          {mark: result, markType: markType},
+          this.courseDto.id, this.studentDto.id
+        ).subscribe({
+            next: (course: CourseDetailsDto) => {
+              this.updateCourse(course);
+              showSuccessfulPopup("Оценка изменена")
+            },
+            error: (err) => {
+              showErrorPopup('Ошибка изменения оценки ', err);
+            }
+          }
+        )
+      }
+    });
+
+  }
+
+  protected readonly MarkType = MarkType;
 }
