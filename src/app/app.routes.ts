@@ -9,6 +9,7 @@ import {CoursesPageSource} from "./core/models/enums/сourses-page-source";
 import {authGuard} from "./core/guards/auth.guard";
 import {notAuthGuard} from "./core/guards/not-auth.guard";
 import {CourseDetailsComponent} from "./pages/course-details/course-details.component";
+import {NotFoundComponent} from "./pages/not-found/not-found.component";
 
 export const routes: Routes = [
   {path: '', component: MainComponent},
@@ -24,5 +25,6 @@ export const routes: Routes = [
     canActivate: [authGuard],
     data: {source: CoursesPageSource.TEACHING}
   },
-  {path: 'courses/:id', component: CourseDetailsComponent, canActivate: [authGuard]}
+  {path: 'courses/:id', component: CourseDetailsComponent, canActivate: [authGuard]},
+  {path: '**', component: NotFoundComponent}
 ];
