@@ -12,8 +12,12 @@
   </mat-tab>
   <mat-tab label="Студенты">
     <div class="tab-content">
-      @for (student of courseDto.students; track student.id) {
-        <app-student [updateCourse]="updateCourse" [courseDto]="courseDto"  [studentDto]="student"></app-student>
+      @if (courseDto.students.length != 0) {
+        @for (student of courseDto.students; track student.id) {
+          <app-student [updateCourse]="updateCourse" [courseDto]="courseDto"  [studentDto]="student"></app-student>
+        }
+      } @else {
+        <h3 class="empty">На данный студенты отсутствуют</h3>
       }
     </div>
   </mat-tab>
