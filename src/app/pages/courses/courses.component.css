@@ -21,8 +21,13 @@
   word-break: break-all;
 }
 
-.empty{
+.empty {
   text-align: center;
   margin-top: 20px;
 }
+
+.search_container {
+  margin-top: 10px;
+}
+
 

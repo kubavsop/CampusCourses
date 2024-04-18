@@ -4,7 +4,11 @@
     <button mat-raised-button *ngIf="userService.isAdmin() && id != undefined" (click)="openCreateCourse()">Создать</button>
   </div>
   @if (courses.length != 0) {
-    @for (course of courses; track course.id) {
+    <mat-form-field class="search_container" appearance="outline">
+      <mat-label aria-required="false">Поиск</mat-label>
+      <input matInput [(ngModel)]="search">
+    </mat-form-field>
+    @for (course of courses | filterCourses:search; track course.id) {
       <app-course [courseDto]="course"></app-course>
     }
   } @else {

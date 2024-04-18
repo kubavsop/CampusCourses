@@ -14,6 +14,10 @@ import {combineLatest} from "rxjs";
 import {UserService} from "../../core/services/user.service";
 import {ActionWithCourseComponent} from "../../shared/modals/action-with-course/action-with-course.component";
 import {MatDialog} from "@angular/material/dialog";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FilterCoursesPipe} from "../../shared/pipes/filter-courses.pipe";
 
 @Component({
   selector: 'app-courses',
@@ -21,7 +25,13 @@ import {MatDialog} from "@angular/material/dialog";
   imports: [
     CourseComponent,
     MatButton,
-    NgIf
+    NgIf,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    ReactiveFormsModule,
+    FormsModule,
+    FilterCoursesPipe
   ],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.css'
@@ -32,6 +42,7 @@ export class CoursesComponent implements OnInit {
   pageSource: CoursesPageSource
   initialLoading: boolean = true
   courses: CourseDto[]
+  search = ""
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
