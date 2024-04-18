@@ -3,7 +3,11 @@
     <h1 class="title">Группы кампусных курсов</h1>
     <button mat-raised-button *ngIf="userService.isAdmin()" (click)="openCreateGroup()">Создать</button>
   </div>
-  @for (group of groups; track group.id) {
+  <mat-form-field class="search_container" appearance="outline">
+    <mat-label aria-required="false">Поиск</mat-label>
+    <input matInput [(ngModel)]="search">
+  </mat-form-field>
+  @for (group of groups | filterGroups:search; track group.id) {
     <app-group [title]="group.name" [groupId]="group.id" [deleteGroup]="openDeleteGroup" [editGroup]="openEditGroup"></app-group>
   }
 </div>

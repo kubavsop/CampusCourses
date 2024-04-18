@@ -10,6 +10,10 @@ import {MatDialog} from "@angular/material/dialog";
 import {CreateGroupComponent} from "../../shared/modals/create-group/create-group.component";
 import {DeletionConfirmationComponent} from "../../shared/modals/deletion-confirmation/deletion-confirmation.component";
 import {EditGroupComponent} from "../../shared/modals/edit-group/edit-group.component";
+import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FilterGroupsPipe} from "../../shared/pipes/filter-groups.pipe";
 
 @Component({
   selector: 'app-groups',
@@ -17,7 +21,14 @@ import {EditGroupComponent} from "../../shared/modals/edit-group/edit-group.comp
   imports: [
     GroupComponent,
     MatButtonModule,
-    NgIf
+    NgIf,
+    MatError,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    ReactiveFormsModule,
+    FormsModule,
+    FilterGroupsPipe
   ],
   templateUrl: './groups.component.html',
   styleUrl: './groups.component.css'
@@ -25,6 +36,7 @@ import {EditGroupComponent} from "../../shared/modals/edit-group/edit-group.comp
 export class GroupsComponent implements OnInit {
   loading: boolean = true
   groups: GroupDto[]
+  search = ""
 
   constructor(
     private readonly groupService: GroupService,
